@@ -1,0 +1,15 @@
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Release\msMessenger.exe.config
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Release\msMessenger.exe
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Release\msMessenger.XmlSerializers.dll
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Release\msMessenger.pdb
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Release\MaterialSkin.dll
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Release\msMessenger.DIDSelector.resources
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Release\msMessenger.msMessenger.resources
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Release\msMessenger.Properties.Resources.resources
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Release\msMessenger.csproj.GenerateResource.Cache
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Release\msMessenger.exe
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Release\msMessenger.pdb
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Release\msMessenger.XmlSerializers.dll
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Release\msMessenger.csprojResolveAssemblyReference.cache
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Release\Newtonsoft.Json.dll
+C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Release\Newtonsoft.Json.xml

@@ -1,0 +1,3366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd1="https://voip.ms/api/schema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://voip.ms/api/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="VoIPmsService" targetNamespace="https://voip.ms/api/wsdl" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="https://voip.ms/api/schema">
+      <xsd:complexType name="addChargeInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:integer" />
+          <xsd:element name="charge" type="xsd:decimal" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="test" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="addPaymentInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:integer" />
+          <xsd:element name="payment" type="xsd:decimal" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="test" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="backOrderDIDUSAInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="quantity" type="xsd:integer" />
+          <xsd:element name="state" type="xsd:string" />
+          <xsd:element name="ratecenter" type="xsd:string" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:integer" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="billing_type" type="xsd:integer" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:string" />
+          <xsd:element name="setup" type="xsd:string" />
+          <xsd:element name="minute" type="xsd:string" />
+          <xsd:element name="test" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="backOrderDIDCANInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="quantity" type="xsd:integer" />
+          <xsd:element name="province" type="xsd:string" />
+          <xsd:element name="ratecenter" type="xsd:string" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:integer" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="billing_type" type="xsd:integer" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:string" />
+          <xsd:element name="setup" type="xsd:string" />
+          <xsd:element name="minute" type="xsd:string" />
+          <xsd:element name="test" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="cancelDIDInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="cancelcomment" type="xsd:string" />
+          <xsd:element name="portout" type="xsd:boolean" />
+          <xsd:element name="test" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="connectDIDInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:decimal" />
+          <xsd:element name="setup" type="xsd:decimal" />
+          <xsd:element name="minute" type="xsd:decimal" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="createSubAccountInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="username" type="xsd:string" />
+          <xsd:element name="protocol" type="xsd:integer" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="auth_type" type="xsd:integer" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="ip" type="xsd:string" />
+          <xsd:element name="device_type" type="xsd:integer" />
+          <xsd:element name="callerid_number" type="xsd:string" />
+          <xsd:element name="canada_routing" type="xsd:string" />
+          <xsd:element name="lock_international" type="xsd:integer" />
+          <xsd:element name="international_route" type="xsd:integer" />
+          <xsd:element name="music_on_hold" type="xsd:string" />
+          <xsd:element name="allowed_codecs" type="xsd:string" />
+          <xsd:element name="dtmf_mode" type="xsd:string" />
+          <xsd:element name="nat" type="xsd:string" />
+          <xsd:element name="internal_extension" type="xsd:string" />
+          <xsd:element name="internal_voicemail" type="xsd:string" />
+          <xsd:element name="internal_dialtime" type="xsd:string" />
+          <xsd:element name="reseller_client" type="xsd:string" />
+          <xsd:element name="reseller_package" type="xsd:string" />
+          <xsd:element name="reseller_nextbilling" type="xsd:string" />
+          <xsd:element name="reseller_chargesetup" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="createVoicemailInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="digits" type="xsd:integer" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="skip_password" type="xsd:string" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="attach_message" type="xsd:string" />
+          <xsd:element name="delete_message" type="xsd:string" />
+          <xsd:element name="say_time" type="xsd:string" />
+          <xsd:element name="timezone" type="xsd:string" />
+          <xsd:element name="say_callerid" type="xsd:string" />
+          <xsd:element name="play_instructions" type="xsd:string" />
+          <xsd:element name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delCallbackInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="callback" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delCallerIDFilteringInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="filtering" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delClientInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delDISAInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="disa" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delForwardingInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="forwarding" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delIVRInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="ivr" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delMessagesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="mailbox" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delPhonebookInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="phonebook" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delQueueInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="queue" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delRecordingInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="recording" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delRingGroupInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="ringgroup" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delSIPURIInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="sipuri" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="deleteSMSInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="id" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delStaticMemberInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="member" type="xsd:integer" />
+          <xsd:element name="queue" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delSubAccountInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="id" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delTimeConditionInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="timecondition" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="delVoicemailInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="mailbox" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getAllowedCodecsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="codec" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getAuthTypesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getBalanceInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="advanced" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getBalanceManagementInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="balance_management" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getCallAccountsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getCallbacksInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="callback" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getCallBillingInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getCallerIDFilteringInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="filtering" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getCallTypesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getCarriersInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="carrier" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getCDRInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="date_from" type="xsd:string" />
+          <xsd:element name="date_to" type="xsd:string" />
+          <xsd:element name="answered" type="xsd:boolean" />
+          <xsd:element name="noanswer" type="xsd:boolean" />
+          <xsd:element name="busy" type="xsd:boolean" />
+          <xsd:element name="failed" type="xsd:boolean" />
+          <xsd:element name="timezone" type="xsd:decimal" />
+          <xsd:element name="calltype" type="xsd:string" />
+          <xsd:element name="callbilling" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getChargesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getClientPackagesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getClientsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getClientThresholdInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getCountriesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="country" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDepositsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDeviceTypesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="device_type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDIDCountriesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="country_id" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDIDsCANInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="province" type="xsd:string" />
+          <xsd:element name="ratecenter" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDIDsInfoInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getPortabilityInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDIDsInternationalGeographicInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="country_id" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDIDsInternationalNationalInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="country_id" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDIDsInternationalTollFreeInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="country_id" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDIDsUSAInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="state" type="xsd:string" />
+          <xsd:element name="ratecenter" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDISAsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="disa" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDTMFModesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="dtmf_mode" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getForwardingsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="forwarding" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getInternationalTypesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getIPInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getIVRsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="ivr" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getJoinWhenEmptyTypesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getLanguagesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getLockInternationalInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="lock_international" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getMusicOnHoldInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="music_on_hold" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getNATInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="nat" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getPackagesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="package" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getPhonebookInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="phonebook" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getPlayInstructionsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="play_instructions" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getProtocolsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="protocol" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getProvincesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getQueuesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="queue" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getRateCentersCANInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="province" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getRateCentersUSAInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="state" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getRatesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="package" type="xsd:string" />
+          <xsd:element name="query" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getRecordingsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="recording" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getRegistrationStatusInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getReportEstimatedHoldTimeInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getResellerBalanceInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getResellerCDRInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="date_from" type="xsd:string" />
+          <xsd:element name="date_to" type="xsd:string" />
+          <xsd:element name="client" type="xsd:integer" />
+          <xsd:element name="answered" type="xsd:boolean" />
+          <xsd:element name="noanswer" type="xsd:boolean" />
+          <xsd:element name="busy" type="xsd:boolean" />
+          <xsd:element name="failed" type="xsd:boolean" />
+          <xsd:element name="timezone" type="xsd:decimal" />
+          <xsd:element name="calltype" type="xsd:string" />
+          <xsd:element name="callbilling" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getRingGroupsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="ring_group" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getRingStrategiesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="strategy" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getRoutesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="route" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getServersInfoInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="server_pop" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getSIPURIsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="sipuri" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getSMSInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="from" type="xsd:string" />
+          <xsd:element name="to" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="contact" type="xsd:string" />
+          <xsd:element name="limit" type="xsd:string" />
+          <xsd:element name="timezone" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getStatesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getStaticMembersInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="queue" type="xsd:string" />
+          <xsd:element name="member" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getSubAccountsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getTerminationRatesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="query" type="xsd:string" />
+          <xsd:element name="route" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getTimeConditionsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="timecondition" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getTimezonesInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="timezone" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getVoicemailAttachmentFormatsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="email_attachment_format" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getVoicemailsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="mailbox" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getVoicemailSetupsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="voicemailsetup" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="orderDIDInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:integer" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="billing_type" type="xsd:integer" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:string" />
+          <xsd:element name="setup" type="xsd:string" />
+          <xsd:element name="minute" type="xsd:string" />
+          <xsd:element name="test" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="orderDIDInternationalGeographicInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="location_id" type="xsd:string" />
+          <xsd:element name="quantity" type="xsd:integer" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:string" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:string" />
+          <xsd:element name="setup" type="xsd:string" />
+          <xsd:element name="minute" type="xsd:string" />
+          <xsd:element name="test" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="orderDIDInternationalNationalInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="location_id" type="xsd:string" />
+          <xsd:element name="quantity" type="xsd:integer" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:string" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:string" />
+          <xsd:element name="setup" type="xsd:string" />
+          <xsd:element name="minute" type="xsd:string" />
+          <xsd:element name="test" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="orderDIDInternationalTollFreeInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="location_id" type="xsd:string" />
+          <xsd:element name="quantity" type="xsd:integer" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:string" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:string" />
+          <xsd:element name="setup" type="xsd:string" />
+          <xsd:element name="minute" type="xsd:string" />
+          <xsd:element name="test" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="orderDIDVirtualInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="digits" type="xsd:integer" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:string" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:string" />
+          <xsd:element name="setup" type="xsd:string" />
+          <xsd:element name="minute" type="xsd:string" />
+          <xsd:element name="test" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="orderTollFreeInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:integer" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:string" />
+          <xsd:element name="setup" type="xsd:string" />
+          <xsd:element name="minute" type="xsd:string" />
+          <xsd:element name="test" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="orderVanityInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:integer" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="carrier" type="xsd:integer" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="monthly" type="xsd:string" />
+          <xsd:element name="setup" type="xsd:string" />
+          <xsd:element name="minute" type="xsd:string" />
+          <xsd:element name="test" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="searchDIDsCANInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="province" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="query" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="searchDIDsUSAInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="state" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="query" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="searchTollFreeCanUSInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="query" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="searchTollFreeUSAInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="query" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="searchVanityInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="query" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="sendSMSInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="dst" type="xsd:string" />
+          <xsd:element name="message" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setCallbackInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="callback" type="xsd:string" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="number" type="xsd:integer" />
+          <xsd:element name="delay_before" type="xsd:integer" />
+          <xsd:element name="response_timeout" type="xsd:integer" />
+          <xsd:element name="digit_timeout" type="xsd:integer" />
+          <xsd:element name="callerid_number" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setCallerIDFilteringInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="filter" type="xsd:string" />
+          <xsd:element name="callerid" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setClientInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:integer" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="company" type="xsd:string" />
+          <xsd:element name="firstname" type="xsd:string" />
+          <xsd:element name="lastname" type="xsd:string" />
+          <xsd:element name="address" type="xsd:string" />
+          <xsd:element name="city" type="xsd:string" />
+          <xsd:element name="state" type="xsd:string" />
+          <xsd:element name="country" type="xsd:string" />
+          <xsd:element name="zip" type="xsd:string" />
+          <xsd:element name="phone_number" type="xsd:string" />
+          <xsd:element name="balance_management" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setClientThresholdInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="client" type="xsd:integer" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="threshold" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setDIDBillingTypeInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="billing_type" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setDIDInfoInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="routing" type="xsd:string" />
+          <xsd:element name="failover_busy" type="xsd:string" />
+          <xsd:element name="failover_unreachable" type="xsd:string" />
+          <xsd:element name="failover_noanswer" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+          <xsd:element name="dialtime" type="xsd:integer" />
+          <xsd:element name="cnam" type="xsd:integer" />
+          <xsd:element name="callerid_prefix" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="billing_type" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setDIDPOPInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="pop" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setDIDRoutingInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="routing" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setDIDVoicemailInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setDISAInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="disa" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="pin" type="xsd:integer" />
+          <xsd:element name="digit_timeout" type="xsd:integer" />
+          <xsd:element name="callerid_override" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setForwardingInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="forwarding" type="xsd:string" />
+          <xsd:element name="phone_number" type="xsd:string" />
+          <xsd:element name="callerid_override" type="xsd:string" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="dtmf_digits" type="xsd:string" />
+          <xsd:element name="pause" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setIVRInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="ivr" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="recording" type="xsd:integer" />
+          <xsd:element name="timeout" type="xsd:integer" />
+          <xsd:element name="language" type="xsd:string" />
+          <xsd:element name="voicemailsetup" type="xsd:integer" />
+          <xsd:element name="choices" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setPhonebookInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="phonebook" type="xsd:string" />
+          <xsd:element name="speed_dial" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="number" type="xsd:integer" />
+          <xsd:element name="callerid" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setQueueInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="queue" type="xsd:string" />
+          <xsd:element name="queue_name" type="xsd:string" />
+          <xsd:element name="queue_number" type="xsd:integer" />
+          <xsd:element name="queue_language" type="xsd:string" />
+          <xsd:element name="queue_password" type="xsd:string" />
+          <xsd:element name="callerid_prefix" type="xsd:integer" />
+          <xsd:element name="join_announcement" type="xsd:string" />
+          <xsd:element name="priority_weight" type="xsd:string" />
+          <xsd:element name="agent_announcement" type="xsd:string" />
+          <xsd:element name="report_hold_time_agent" type="xsd:string" />
+          <xsd:element name="member_delay" type="xsd:string" />
+          <xsd:element name="maximum_wait_time" type="xsd:string" />
+          <xsd:element name="maximum_callers" type="xsd:string" />
+          <xsd:element name="join_when_empty" type="xsd:string" />
+          <xsd:element name="leave_when_empty" type="xsd:string" />
+          <xsd:element name="ring_strategy" type="xsd:string" />
+          <xsd:element name="ring_inuse" type="xsd:string" />
+          <xsd:element name="agent_ring_timeout" type="xsd:integer" />
+          <xsd:element name="retry_timer" type="xsd:string" />
+          <xsd:element name="wrapup_time" type="xsd:string" />
+          <xsd:element name="voice_announcement" type="xsd:string" />
+          <xsd:element name="frequency_announcement" type="xsd:string" />
+          <xsd:element name="announce_position_frecuency" type="xsd:string" />
+          <xsd:element name="announce_round_seconds" type="xsd:string" />
+          <xsd:element name="if_announce_position_enabled_report_estimated_hold_time" type="xsd:string" />
+          <xsd:element name="thankyou_for_your_patience" type="xsd:string" />
+          <xsd:element name="music_on_hold" type="xsd:string" />
+          <xsd:element name="fail_over_routing_timeout" type="xsd:string" />
+          <xsd:element name="fail_over_routing_full" type="xsd:string" />
+          <xsd:element name="fail_over_routing_join_empty" type="xsd:string" />
+          <xsd:element name="fail_over_routing_leave_empty" type="xsd:string" />
+          <xsd:element name="fail_over_routing_join_unavail" type="xsd:string" />
+          <xsd:element name="fail_over_routing_leave_unavail" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setRecordingInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="recording" type="xsd:string" />
+          <xsd:element name="file" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setRingGroupInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="ring_group" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="members" type="xsd:string" />
+          <xsd:element name="voicemail" type="xsd:string" />
+          <xsd:element name="caller_announcement" type="xsd:string" />
+          <xsd:element name="music_on_hold" type="xsd:string" />
+          <xsd:element name="language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setSIPURIInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="sipuri" type="xsd:string" />
+          <xsd:element name="uri" type="xsd:string" />
+          <xsd:element name="description" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setSMSInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+          <xsd:element name="enable" type="xsd:string" />
+          <xsd:element name="email_enabled" type="xsd:string" />
+          <xsd:element name="email_address" type="xsd:string" />
+          <xsd:element name="sms_forward_enable" type="xsd:string" />
+          <xsd:element name="sms_forward" type="xsd:string" />
+          <xsd:element name="url_callback_enable" type="xsd:string" />
+          <xsd:element name="url_callback" type="xsd:string" />
+          <xsd:element name="url_callback_retry" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setStaticMemberInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="member" type="xsd:string" />
+          <xsd:element name="queue" type="xsd:integer" />
+          <xsd:element name="member_name" type="xsd:string" />
+          <xsd:element name="account" type="xsd:string" />
+          <xsd:element name="priority" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setSubAccountInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="id" type="xsd:integer" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="auth_type" type="xsd:integer" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="ip" type="xsd:string" />
+          <xsd:element name="device_type" type="xsd:integer" />
+          <xsd:element name="callerid_number" type="xsd:string" />
+          <xsd:element name="canada_routing" type="xsd:string" />
+          <xsd:element name="lock_international" type="xsd:integer" />
+          <xsd:element name="international_route" type="xsd:integer" />
+          <xsd:element name="music_on_hold" type="xsd:string" />
+          <xsd:element name="allowed_codecs" type="xsd:string" />
+          <xsd:element name="dtmf_mode" type="xsd:string" />
+          <xsd:element name="nat" type="xsd:string" />
+          <xsd:element name="internal_extension" type="xsd:string" />
+          <xsd:element name="internal_voicemail" type="xsd:string" />
+          <xsd:element name="internal_dialtime" type="xsd:string" />
+          <xsd:element name="reseller_client" type="xsd:string" />
+          <xsd:element name="reseller_package" type="xsd:string" />
+          <xsd:element name="reseller_nextbilling" type="xsd:string" />
+          <xsd:element name="reseller_chargesetup" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setTimeConditionsInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="timecondition" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="routing_match" type="xsd:string" />
+          <xsd:element name="routing_nomatch" type="xsd:string" />
+          <xsd:element name="starthour" type="xsd:string" />
+          <xsd:element name="startminute" type="xsd:string" />
+          <xsd:element name="endhour" type="xsd:string" />
+          <xsd:element name="endminute" type="xsd:string" />
+          <xsd:element name="weekdaystart" type="xsd:string" />
+          <xsd:element name="weekdayend" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="setVoicemailInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="mailbox" type="xsd:integer" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="skip_password" type="xsd:string" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="attach_message" type="xsd:string" />
+          <xsd:element name="delete_message" type="xsd:string" />
+          <xsd:element name="say_time" type="xsd:string" />
+          <xsd:element name="timezone" type="xsd:string" />
+          <xsd:element name="say_callerid" type="xsd:string" />
+          <xsd:element name="play_instructions" type="xsd:string" />
+          <xsd:element name="language" type="xsd:string" />
+          <xsd:element name="email_attachment_format" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="signupClientInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="firstname" type="xsd:string" />
+          <xsd:element name="lastname" type="xsd:string" />
+          <xsd:element name="company" type="xsd:string" />
+          <xsd:element name="address" type="xsd:string" />
+          <xsd:element name="city" type="xsd:string" />
+          <xsd:element name="state" type="xsd:string" />
+          <xsd:element name="country" type="xsd:string" />
+          <xsd:element name="zip" type="xsd:string" />
+          <xsd:element name="phone_number" type="xsd:string" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element name="confirm_email" type="xsd:string" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element name="confirm_password" type="xsd:string" />
+          <xsd:element name="activate" type="xsd:boolean" />
+          <xsd:element name="balance_management" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="unconnectDIDInput">
+        <xsd:sequence>
+          <xsd:element name="api_username" type="xsd:string" />
+          <xsd:element name="api_password" type="xsd:string" />
+          <xsd:element name="did" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+  <message name="arrayResponse">
+    <part name="return" type="soapenc:Array" />
+  </message>
+  <message name="addChargeRequest">
+    <part name="params" type="xsd1:addChargeInput" />
+  </message>
+  <message name="addPaymentRequest">
+    <part name="params" type="xsd1:addPaymentInput" />
+  </message>
+  <message name="backOrderDIDUSARequest">
+    <part name="params" type="xsd1:backOrderDIDUSAInput" />
+  </message>
+  <message name="backOrderDIDCANRequest">
+    <part name="params" type="xsd1:backOrderDIDCANInput" />
+  </message>
+  <message name="cancelDIDRequest">
+    <part name="params" type="xsd1:cancelDIDInput" />
+  </message>
+  <message name="connectDIDRequest">
+    <part name="params" type="xsd1:connectDIDInput" />
+  </message>
+  <message name="createSubAccountRequest">
+    <part name="params" type="xsd1:createSubAccountInput" />
+  </message>
+  <message name="createVoicemailRequest">
+    <part name="params" type="xsd1:createVoicemailInput" />
+  </message>
+  <message name="delCallbackRequest">
+    <part name="params" type="xsd1:delCallbackInput" />
+  </message>
+  <message name="delCallerIDFilteringRequest">
+    <part name="params" type="xsd1:delCallerIDFilteringInput" />
+  </message>
+  <message name="delClientRequest">
+    <part name="params" type="xsd1:delClientInput" />
+  </message>
+  <message name="delDISARequest">
+    <part name="params" type="xsd1:delDISAInput" />
+  </message>
+  <message name="delForwardingRequest">
+    <part name="params" type="xsd1:delForwardingInput" />
+  </message>
+  <message name="delIVRRequest">
+    <part name="params" type="xsd1:delIVRInput" />
+  </message>
+  <message name="delMessagesRequest">
+    <part name="params" type="xsd1:delMessagesInput" />
+  </message>
+  <message name="delPhonebookRequest">
+    <part name="params" type="xsd1:delPhonebookInput" />
+  </message>
+  <message name="delQueueRequest">
+    <part name="params" type="xsd1:delQueueInput" />
+  </message>
+  <message name="delRecordingRequest">
+    <part name="params" type="xsd1:delRecordingInput" />
+  </message>
+  <message name="delRingGroupRequest">
+    <part name="params" type="xsd1:delRingGroupInput" />
+  </message>
+  <message name="delSIPURIRequest">
+    <part name="params" type="xsd1:delSIPURIInput" />
+  </message>
+  <message name="deleteSMSRequest">
+    <part name="params" type="xsd1:deleteSMSInput" />
+  </message>
+  <message name="delStaticMemberRequest">
+    <part name="params" type="xsd1:delStaticMemberInput" />
+  </message>
+  <message name="delSubAccountRequest">
+    <part name="params" type="xsd1:delSubAccountInput" />
+  </message>
+  <message name="delTimeConditionRequest">
+    <part name="params" type="xsd1:delTimeConditionInput" />
+  </message>
+  <message name="delVoicemailRequest">
+    <part name="params" type="xsd1:delVoicemailInput" />
+  </message>
+  <message name="getAllowedCodecsRequest">
+    <part name="params" type="xsd1:getAllowedCodecsInput" />
+  </message>
+  <message name="getAuthTypesRequest">
+    <part name="params" type="xsd1:getAuthTypesInput" />
+  </message>
+  <message name="getBalanceRequest">
+    <part name="params" type="xsd1:getBalanceInput" />
+  </message>
+  <message name="getBalanceManagementRequest">
+    <part name="params" type="xsd1:getBalanceManagementInput" />
+  </message>
+  <message name="getCallAccountsRequest">
+    <part name="params" type="xsd1:getCallAccountsInput" />
+  </message>
+  <message name="getCallbacksRequest">
+    <part name="params" type="xsd1:getCallbacksInput" />
+  </message>
+  <message name="getCallBillingRequest">
+    <part name="params" type="xsd1:getCallBillingInput" />
+  </message>
+  <message name="getCallerIDFilteringRequest">
+    <part name="params" type="xsd1:getCallerIDFilteringInput" />
+  </message>
+  <message name="getCallTypesRequest">
+    <part name="params" type="xsd1:getCallTypesInput" />
+  </message>
+  <message name="getCarriersRequest">
+    <part name="params" type="xsd1:getCarriersInput" />
+  </message>
+  <message name="getCDRRequest">
+    <part name="params" type="xsd1:getCDRInput" />
+  </message>
+  <message name="getChargesRequest">
+    <part name="params" type="xsd1:getChargesInput" />
+  </message>
+  <message name="getClientPackagesRequest">
+    <part name="params" type="xsd1:getClientPackagesInput" />
+  </message>
+  <message name="getClientsRequest">
+    <part name="params" type="xsd1:getClientsInput" />
+  </message>
+  <message name="getClientThresholdRequest">
+    <part name="params" type="xsd1:getClientThresholdInput" />
+  </message>
+  <message name="getCountriesRequest">
+    <part name="params" type="xsd1:getCountriesInput" />
+  </message>
+  <message name="getDepositsRequest">
+    <part name="params" type="xsd1:getDepositsInput" />
+  </message>
+  <message name="getDeviceTypesRequest">
+    <part name="params" type="xsd1:getDeviceTypesInput" />
+  </message>
+  <message name="getDIDCountriesRequest">
+    <part name="params" type="xsd1:getDIDCountriesInput" />
+  </message>
+  <message name="getDIDsCANRequest">
+    <part name="params" type="xsd1:getDIDsCANInput" />
+  </message>
+  <message name="getDIDsInfoRequest">
+    <part name="params" type="xsd1:getDIDsInfoInput" />
+  </message>
+  <message name="getPortabilityRequest">
+    <part name="params" type="xsd1:getPortabilityInput" />
+  </message>
+  <message name="getDIDsInternationalGeographicRequest">
+    <part name="params" type="xsd1:getDIDsInternationalGeographicInput" />
+  </message>
+  <message name="getDIDsInternationalNationalRequest">
+    <part name="params" type="xsd1:getDIDsInternationalNationalInput" />
+  </message>
+  <message name="getDIDsInternationalTollFreeRequest">
+    <part name="params" type="xsd1:getDIDsInternationalTollFreeInput" />
+  </message>
+  <message name="getDIDsUSARequest">
+    <part name="params" type="xsd1:getDIDsUSAInput" />
+  </message>
+  <message name="getDISAsRequest">
+    <part name="params" type="xsd1:getDISAsInput" />
+  </message>
+  <message name="getDTMFModesRequest">
+    <part name="params" type="xsd1:getDTMFModesInput" />
+  </message>
+  <message name="getForwardingsRequest">
+    <part name="params" type="xsd1:getForwardingsInput" />
+  </message>
+  <message name="getInternationalTypesRequest">
+    <part name="params" type="xsd1:getInternationalTypesInput" />
+  </message>
+  <message name="getIPRequest">
+    <part name="params" type="xsd1:getIPInput" />
+  </message>
+  <message name="getIVRsRequest">
+    <part name="params" type="xsd1:getIVRsInput" />
+  </message>
+  <message name="getJoinWhenEmptyTypesRequest">
+    <part name="params" type="xsd1:getJoinWhenEmptyTypesInput" />
+  </message>
+  <message name="getLanguagesRequest">
+    <part name="params" type="xsd1:getLanguagesInput" />
+  </message>
+  <message name="getLockInternationalRequest">
+    <part name="params" type="xsd1:getLockInternationalInput" />
+  </message>
+  <message name="getMusicOnHoldRequest">
+    <part name="params" type="xsd1:getMusicOnHoldInput" />
+  </message>
+  <message name="getNATRequest">
+    <part name="params" type="xsd1:getNATInput" />
+  </message>
+  <message name="getPackagesRequest">
+    <part name="params" type="xsd1:getPackagesInput" />
+  </message>
+  <message name="getPhonebookRequest">
+    <part name="params" type="xsd1:getPhonebookInput" />
+  </message>
+  <message name="getPlayInstructionsRequest">
+    <part name="params" type="xsd1:getPlayInstructionsInput" />
+  </message>
+  <message name="getProtocolsRequest">
+    <part name="params" type="xsd1:getProtocolsInput" />
+  </message>
+  <message name="getProvincesRequest">
+    <part name="params" type="xsd1:getProvincesInput" />
+  </message>
+  <message name="getQueuesRequest">
+    <part name="params" type="xsd1:getQueuesInput" />
+  </message>
+  <message name="getRateCentersCANRequest">
+    <part name="params" type="xsd1:getRateCentersCANInput" />
+  </message>
+  <message name="getRateCentersUSARequest">
+    <part name="params" type="xsd1:getRateCentersUSAInput" />
+  </message>
+  <message name="getRatesRequest">
+    <part name="params" type="xsd1:getRatesInput" />
+  </message>
+  <message name="getRecordingsRequest">
+    <part name="params" type="xsd1:getRecordingsInput" />
+  </message>
+  <message name="getRegistrationStatusRequest">
+    <part name="params" type="xsd1:getRegistrationStatusInput" />
+  </message>
+  <message name="getReportEstimatedHoldTimeRequest">
+    <part name="params" type="xsd1:getReportEstimatedHoldTimeInput" />
+  </message>
+  <message name="getResellerBalanceRequest">
+    <part name="params" type="xsd1:getResellerBalanceInput" />
+  </message>
+  <message name="getResellerCDRRequest">
+    <part name="params" type="xsd1:getResellerCDRInput" />
+  </message>
+  <message name="getRingGroupsRequest">
+    <part name="params" type="xsd1:getRingGroupsInput" />
+  </message>
+  <message name="getRingStrategiesRequest">
+    <part name="params" type="xsd1:getRingStrategiesInput" />
+  </message>
+  <message name="getRoutesRequest">
+    <part name="params" type="xsd1:getRoutesInput" />
+  </message>
+  <message name="getServersInfoRequest">
+    <part name="params" type="xsd1:getServersInfoInput" />
+  </message>
+  <message name="getSIPURIsRequest">
+    <part name="params" type="xsd1:getSIPURIsInput" />
+  </message>
+  <message name="getSMSRequest">
+    <part name="params" type="xsd1:getSMSInput" />
+  </message>
+  <message name="getStatesRequest">
+    <part name="params" type="xsd1:getStatesInput" />
+  </message>
+  <message name="getStaticMembersRequest">
+    <part name="params" type="xsd1:getStaticMembersInput" />
+  </message>
+  <message name="getSubAccountsRequest">
+    <part name="params" type="xsd1:getSubAccountsInput" />
+  </message>
+  <message name="getTerminationRatesRequest">
+    <part name="params" type="xsd1:getTerminationRatesInput" />
+  </message>
+  <message name="getTimeConditionsRequest">
+    <part name="params" type="xsd1:getTimeConditionsInput" />
+  </message>
+  <message name="getTimezonesRequest">
+    <part name="params" type="xsd1:getTimezonesInput" />
+  </message>
+  <message name="getVoicemailAttachmentFormatsRequest">
+    <part name="params" type="xsd1:getVoicemailAttachmentFormatsInput" />
+  </message>
+  <message name="getVoicemailsRequest">
+    <part name="params" type="xsd1:getVoicemailsInput" />
+  </message>
+  <message name="getVoicemailSetupsRequest">
+    <part name="params" type="xsd1:getVoicemailSetupsInput" />
+  </message>
+  <message name="orderDIDRequest">
+    <part name="params" type="xsd1:orderDIDInput" />
+  </message>
+  <message name="orderDIDInternationalGeographicRequest">
+    <part name="params" type="xsd1:orderDIDInternationalGeographicInput" />
+  </message>
+  <message name="orderDIDInternationalNationalRequest">
+    <part name="params" type="xsd1:orderDIDInternationalNationalInput" />
+  </message>
+  <message name="orderDIDInternationalTollFreeRequest">
+    <part name="params" type="xsd1:orderDIDInternationalTollFreeInput" />
+  </message>
+  <message name="orderDIDVirtualRequest">
+    <part name="params" type="xsd1:orderDIDVirtualInput" />
+  </message>
+  <message name="orderTollFreeRequest">
+    <part name="params" type="xsd1:orderTollFreeInput" />
+  </message>
+  <message name="orderVanityRequest">
+    <part name="params" type="xsd1:orderVanityInput" />
+  </message>
+  <message name="searchDIDsCANRequest">
+    <part name="params" type="xsd1:searchDIDsCANInput" />
+  </message>
+  <message name="searchDIDsUSARequest">
+    <part name="params" type="xsd1:searchDIDsUSAInput" />
+  </message>
+  <message name="searchTollFreeCanUSRequest">
+    <part name="params" type="xsd1:searchTollFreeCanUSInput" />
+  </message>
+  <message name="searchTollFreeUSARequest">
+    <part name="params" type="xsd1:searchTollFreeUSAInput" />
+  </message>
+  <message name="searchVanityRequest">
+    <part name="params" type="xsd1:searchVanityInput" />
+  </message>
+  <message name="sendSMSRequest">
+    <part name="params" type="xsd1:sendSMSInput" />
+  </message>
+  <message name="setCallbackRequest">
+    <part name="params" type="xsd1:setCallbackInput" />
+  </message>
+  <message name="setCallerIDFilteringRequest">
+    <part name="params" type="xsd1:setCallerIDFilteringInput" />
+  </message>
+  <message name="setClientRequest">
+    <part name="params" type="xsd1:setClientInput" />
+  </message>
+  <message name="setClientThresholdRequest">
+    <part name="params" type="xsd1:setClientThresholdInput" />
+  </message>
+  <message name="setDIDBillingTypeRequest">
+    <part name="params" type="xsd1:setDIDBillingTypeInput" />
+  </message>
+  <message name="setDIDInfoRequest">
+    <part name="params" type="xsd1:setDIDInfoInput" />
+  </message>
+  <message name="setDIDPOPRequest">
+    <part name="params" type="xsd1:setDIDPOPInput" />
+  </message>
+  <message name="setDIDRoutingRequest">
+    <part name="params" type="xsd1:setDIDRoutingInput" />
+  </message>
+  <message name="setDIDVoicemailRequest">
+    <part name="params" type="xsd1:setDIDVoicemailInput" />
+  </message>
+  <message name="setDISARequest">
+    <part name="params" type="xsd1:setDISAInput" />
+  </message>
+  <message name="setForwardingRequest">
+    <part name="params" type="xsd1:setForwardingInput" />
+  </message>
+  <message name="setIVRRequest">
+    <part name="params" type="xsd1:setIVRInput" />
+  </message>
+  <message name="setPhonebookRequest">
+    <part name="params" type="xsd1:setPhonebookInput" />
+  </message>
+  <message name="setQueueRequest">
+    <part name="params" type="xsd1:setQueueInput" />
+  </message>
+  <message name="setRecordingRequest">
+    <part name="params" type="xsd1:setRecordingInput" />
+  </message>
+  <message name="setRingGroupRequest">
+    <part name="params" type="xsd1:setRingGroupInput" />
+  </message>
+  <message name="setSIPURIRequest">
+    <part name="params" type="xsd1:setSIPURIInput" />
+  </message>
+  <message name="setSMSRequest">
+    <part name="params" type="xsd1:setSMSInput" />
+  </message>
+  <message name="setStaticMemberRequest">
+    <part name="params" type="xsd1:setStaticMemberInput" />
+  </message>
+  <message name="setSubAccountRequest">
+    <part name="params" type="xsd1:setSubAccountInput" />
+  </message>
+  <message name="setTimeConditionsRequest">
+    <part name="params" type="xsd1:setTimeConditionsInput" />
+  </message>
+  <message name="setVoicemailRequest">
+    <part name="params" type="xsd1:setVoicemailInput" />
+  </message>
+  <message name="signupClientRequest">
+    <part name="params" type="xsd1:signupClientInput" />
+  </message>
+  <message name="unconnectDIDRequest">
+    <part name="params" type="xsd1:unconnectDIDInput" />
+  </message>
+  <portType name="VoIPms">
+    <operation name="addCharge">
+      <input message="tns:addChargeRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="addPayment">
+      <input message="tns:addPaymentRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="backOrderDIDUSA">
+      <input message="tns:backOrderDIDUSARequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="backOrderDIDCAN">
+      <input message="tns:backOrderDIDCANRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="cancelDID">
+      <input message="tns:cancelDIDRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="connectDID">
+      <input message="tns:connectDIDRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="createSubAccount">
+      <input message="tns:createSubAccountRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="createVoicemail">
+      <input message="tns:createVoicemailRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delCallback">
+      <input message="tns:delCallbackRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delCallerIDFiltering">
+      <input message="tns:delCallerIDFilteringRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delClient">
+      <input message="tns:delClientRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delDISA">
+      <input message="tns:delDISARequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delForwarding">
+      <input message="tns:delForwardingRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delIVR">
+      <input message="tns:delIVRRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delMessages">
+      <input message="tns:delMessagesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delPhonebook">
+      <input message="tns:delPhonebookRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delQueue">
+      <input message="tns:delQueueRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delRecording">
+      <input message="tns:delRecordingRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delRingGroup">
+      <input message="tns:delRingGroupRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delSIPURI">
+      <input message="tns:delSIPURIRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="deleteSMS">
+      <input message="tns:deleteSMSRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delStaticMember">
+      <input message="tns:delStaticMemberRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delSubAccount">
+      <input message="tns:delSubAccountRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delTimeCondition">
+      <input message="tns:delTimeConditionRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="delVoicemail">
+      <input message="tns:delVoicemailRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getAllowedCodecs">
+      <input message="tns:getAllowedCodecsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getAuthTypes">
+      <input message="tns:getAuthTypesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getBalance">
+      <input message="tns:getBalanceRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getBalanceManagement">
+      <input message="tns:getBalanceManagementRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getCallAccounts">
+      <input message="tns:getCallAccountsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getCallbacks">
+      <input message="tns:getCallbacksRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getCallBilling">
+      <input message="tns:getCallBillingRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getCallerIDFiltering">
+      <input message="tns:getCallerIDFilteringRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getCallTypes">
+      <input message="tns:getCallTypesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getCarriers">
+      <input message="tns:getCarriersRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getCDR">
+      <input message="tns:getCDRRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getCharges">
+      <input message="tns:getChargesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getClientPackages">
+      <input message="tns:getClientPackagesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getClients">
+      <input message="tns:getClientsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getClientThreshold">
+      <input message="tns:getClientThresholdRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getCountries">
+      <input message="tns:getCountriesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDeposits">
+      <input message="tns:getDepositsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDeviceTypes">
+      <input message="tns:getDeviceTypesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDIDCountries">
+      <input message="tns:getDIDCountriesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDIDsCAN">
+      <input message="tns:getDIDsCANRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDIDsInfo">
+      <input message="tns:getDIDsInfoRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getPortability">
+      <input message="tns:getPortabilityRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDIDsInternationalGeographic">
+      <input message="tns:getDIDsInternationalGeographicRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDIDsInternationalNational">
+      <input message="tns:getDIDsInternationalNationalRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDIDsInternationalTollFree">
+      <input message="tns:getDIDsInternationalTollFreeRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDIDsUSA">
+      <input message="tns:getDIDsUSARequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDISAs">
+      <input message="tns:getDISAsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getDTMFModes">
+      <input message="tns:getDTMFModesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getForwardings">
+      <input message="tns:getForwardingsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getInternationalTypes">
+      <input message="tns:getInternationalTypesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getIP">
+      <input message="tns:getIPRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getIVRs">
+      <input message="tns:getIVRsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getJoinWhenEmptyTypes">
+      <input message="tns:getJoinWhenEmptyTypesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getLanguages">
+      <input message="tns:getLanguagesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getLockInternational">
+      <input message="tns:getLockInternationalRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getMusicOnHold">
+      <input message="tns:getMusicOnHoldRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getNAT">
+      <input message="tns:getNATRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getPackages">
+      <input message="tns:getPackagesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getPhonebook">
+      <input message="tns:getPhonebookRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getPlayInstructions">
+      <input message="tns:getPlayInstructionsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getProtocols">
+      <input message="tns:getProtocolsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getProvinces">
+      <input message="tns:getProvincesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getQueues">
+      <input message="tns:getQueuesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getRateCentersCAN">
+      <input message="tns:getRateCentersCANRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getRateCentersUSA">
+      <input message="tns:getRateCentersUSARequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getRates">
+      <input message="tns:getRatesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getRecordings">
+      <input message="tns:getRecordingsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getRegistrationStatus">
+      <input message="tns:getRegistrationStatusRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getReportEstimatedHoldTime">
+      <input message="tns:getReportEstimatedHoldTimeRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getResellerBalance">
+      <input message="tns:getResellerBalanceRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getResellerCDR">
+      <input message="tns:getResellerCDRRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getRingGroups">
+      <input message="tns:getRingGroupsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getRingStrategies">
+      <input message="tns:getRingStrategiesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getRoutes">
+      <input message="tns:getRoutesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getServersInfo">
+      <input message="tns:getServersInfoRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getSIPURIs">
+      <input message="tns:getSIPURIsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getSMS">
+      <input message="tns:getSMSRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getStates">
+      <input message="tns:getStatesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getStaticMembers">
+      <input message="tns:getStaticMembersRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getSubAccounts">
+      <input message="tns:getSubAccountsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getTerminationRates">
+      <input message="tns:getTerminationRatesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getTimeConditions">
+      <input message="tns:getTimeConditionsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getTimezones">
+      <input message="tns:getTimezonesRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getVoicemailAttachmentFormats">
+      <input message="tns:getVoicemailAttachmentFormatsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getVoicemails">
+      <input message="tns:getVoicemailsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="getVoicemailSetups">
+      <input message="tns:getVoicemailSetupsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="orderDID">
+      <input message="tns:orderDIDRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="orderDIDInternationalGeographic">
+      <input message="tns:orderDIDInternationalGeographicRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="orderDIDInternationalNational">
+      <input message="tns:orderDIDInternationalNationalRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="orderDIDInternationalTollFree">
+      <input message="tns:orderDIDInternationalTollFreeRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="orderDIDVirtual">
+      <input message="tns:orderDIDVirtualRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="orderTollFree">
+      <input message="tns:orderTollFreeRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="orderVanity">
+      <input message="tns:orderVanityRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="searchDIDsCAN">
+      <input message="tns:searchDIDsCANRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="searchDIDsUSA">
+      <input message="tns:searchDIDsUSARequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="searchTollFreeCanUS">
+      <input message="tns:searchTollFreeCanUSRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="searchTollFreeUSA">
+      <input message="tns:searchTollFreeUSARequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="searchVanity">
+      <input message="tns:searchVanityRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="sendSMS">
+      <input message="tns:sendSMSRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setCallback">
+      <input message="tns:setCallbackRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setCallerIDFiltering">
+      <input message="tns:setCallerIDFilteringRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setClient">
+      <input message="tns:setClientRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setClientThreshold">
+      <input message="tns:setClientThresholdRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setDIDBillingType">
+      <input message="tns:setDIDBillingTypeRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setDIDInfo">
+      <input message="tns:setDIDInfoRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setDIDPOP">
+      <input message="tns:setDIDPOPRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setDIDRouting">
+      <input message="tns:setDIDRoutingRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setDIDVoicemail">
+      <input message="tns:setDIDVoicemailRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setDISA">
+      <input message="tns:setDISARequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setForwarding">
+      <input message="tns:setForwardingRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setIVR">
+      <input message="tns:setIVRRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setPhonebook">
+      <input message="tns:setPhonebookRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setQueue">
+      <input message="tns:setQueueRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setRecording">
+      <input message="tns:setRecordingRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setRingGroup">
+      <input message="tns:setRingGroupRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setSIPURI">
+      <input message="tns:setSIPURIRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setSMS">
+      <input message="tns:setSMSRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setStaticMember">
+      <input message="tns:setStaticMemberRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setSubAccount">
+      <input message="tns:setSubAccountRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setTimeConditions">
+      <input message="tns:setTimeConditionsRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="setVoicemail">
+      <input message="tns:setVoicemailRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="signupClient">
+      <input message="tns:signupClientRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+    <operation name="unconnectDID">
+      <input message="tns:unconnectDIDRequest" />
+      <output message="tns:arrayResponse" />
+    </operation>
+  </portType>
+  <binding name="VoIPms_Binding" type="tns:VoIPms">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="addCharge">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="addPayment">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="backOrderDIDUSA">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="backOrderDIDCAN">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="cancelDID">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="connectDID">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="createSubAccount">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="createVoicemail">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delCallback">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delCallerIDFiltering">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delClient">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delDISA">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delForwarding">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delIVR">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delMessages">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delPhonebook">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delQueue">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delRecording">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delRingGroup">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delSIPURI">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="deleteSMS">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delStaticMember">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delSubAccount">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delTimeCondition">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="delVoicemail">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getAllowedCodecs">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getAuthTypes">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getBalance">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getBalanceManagement">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getCallAccounts">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getCallbacks">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getCallBilling">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getCallerIDFiltering">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getCallTypes">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getCarriers">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getCDR">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getCharges">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getClientPackages">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getClients">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getClientThreshold">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getCountries">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDeposits">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDeviceTypes">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDIDCountries">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDIDsCAN">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDIDsInfo">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getPortability">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDIDsInternationalGeographic">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDIDsInternationalNational">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDIDsInternationalTollFree">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDIDsUSA">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDISAs">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDTMFModes">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getForwardings">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getInternationalTypes">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getIP">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getIVRs">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getJoinWhenEmptyTypes">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getLanguages">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getLockInternational">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getMusicOnHold">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getNAT">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getPackages">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getPhonebook">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getPlayInstructions">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getProtocols">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getProvinces">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getQueues">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getRateCentersCAN">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getRateCentersUSA">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getRates">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getRecordings">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getRegistrationStatus">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getReportEstimatedHoldTime">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getResellerBalance">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getResellerCDR">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getRingGroups">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getRingStrategies">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getRoutes">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getServersInfo">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getSIPURIs">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getSMS">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getStates">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getStaticMembers">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getSubAccounts">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getTerminationRates">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getTimeConditions">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getTimezones">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getVoicemailAttachmentFormats">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getVoicemails">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getVoicemailSetups">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="orderDID">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="orderDIDInternationalGeographic">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="orderDIDInternationalNational">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="orderDIDInternationalTollFree">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="orderDIDVirtual">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="orderTollFree">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="orderVanity">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="searchDIDsCAN">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="searchDIDsUSA">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="searchTollFreeCanUS">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="searchTollFreeUSA">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="searchVanity">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="sendSMS">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setCallback">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setCallerIDFiltering">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setClient">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setClientThreshold">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setDIDBillingType">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setDIDInfo">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setDIDPOP">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setDIDRouting">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setDIDVoicemail">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setDISA">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setForwarding">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setIVR">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setPhonebook">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setQueue">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setRecording">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setRingGroup">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setSIPURI">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setSMS">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setStaticMember">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setSubAccount">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setTimeConditions">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="setVoicemail">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="signupClient">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="unconnectDID">
+      <soap:operation soapAction="urn:VoIPmsService" />
+      <input>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:VoIPmsService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="VoIPms_Service">
+    <port name="VoIPms_Port" binding="tns:VoIPms_Binding">
+      <soap:address location="https://voip.ms/api/v1/server.php" />
+    </port>
+  </service>
+</definitions>
