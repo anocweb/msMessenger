@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(msMessenger));
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Ex Girlfriend", System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)))),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Why don\'t you answer me!", System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "3 Seconds Ago", System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))))}, 0);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Ex Girlfriend", System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40))))), System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248))))), new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold)),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Why don\'t you answer me!", System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI", 9.75F)),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "50 Seconds Ago", System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI Light", 8.25F))}, 0);
@@ -243,7 +243,7 @@
             // serverUpdate_label
             // 
             this.serverUpdate_label.AutoSize = true;
-            this.serverUpdate_label.Location = new System.Drawing.Point(5, 454);
+            this.serverUpdate_label.Location = new System.Drawing.Point(8, 463);
             this.serverUpdate_label.Name = "serverUpdate_label";
             this.serverUpdate_label.Size = new System.Drawing.Size(99, 13);
             this.serverUpdate_label.TabIndex = 25;
@@ -253,7 +253,7 @@
             // 
             this.materialRaisedButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.materialRaisedButton1.Depth = 0;
-            this.materialRaisedButton1.Location = new System.Drawing.Point(182, 284);
+            this.materialRaisedButton1.Location = new System.Drawing.Point(175, 421);
             this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton1.Name = "materialRaisedButton1";
             this.materialRaisedButton1.Primary = true;
@@ -286,7 +286,7 @@
             // 
             this.voipTestConnect_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.voipTestConnect_btn.Depth = 0;
-            this.voipTestConnect_btn.Location = new System.Drawing.Point(31, 181);
+            this.voipTestConnect_btn.Location = new System.Drawing.Point(22, 181);
             this.voipTestConnect_btn.MouseState = MaterialSkin.MouseState.HOVER;
             this.voipTestConnect_btn.Name = "voipTestConnect_btn";
             this.voipTestConnect_btn.Primary = true;
@@ -317,7 +317,7 @@
             this.materialLabel3.Depth = 0;
             this.materialLabel3.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel3.Location = new System.Drawing.Point(9, 253);
+            this.materialLabel3.Location = new System.Drawing.Point(9, 390);
             this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel3.Name = "materialLabel3";
             this.materialLabel3.Size = new System.Drawing.Size(187, 28);
@@ -366,7 +366,7 @@
             // 
             this.materialTheme_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.materialTheme_btn.Depth = 0;
-            this.materialTheme_btn.Location = new System.Drawing.Point(28, 284);
+            this.materialTheme_btn.Location = new System.Drawing.Point(21, 421);
             this.materialTheme_btn.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTheme_btn.Name = "materialTheme_btn";
             this.materialTheme_btn.Primary = true;
@@ -443,7 +443,7 @@
             this.ContactList.Location = new System.Drawing.Point(3, 3);
             this.ContactList.MultiSelect = false;
             this.ContactList.Name = "ContactList";
-            this.ContactList.Size = new System.Drawing.Size(339, 471);
+            this.ContactList.Size = new System.Drawing.Size(339, 474);
             this.ContactList.TabIndex = 1;
             this.ContactList.TileSize = new System.Drawing.Size(310, 65);
             this.ContactList.UseCompatibleStateImageBehavior = false;
@@ -465,8 +465,8 @@
             this.contactNumber_text.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.contactNumber_text.Depth = 0;
-            this.contactNumber_text.Hint = "Contact Number";
-            this.contactNumber_text.Location = new System.Drawing.Point(10, 382);
+            this.contactNumber_text.Hint = "Number";
+            this.contactNumber_text.Location = new System.Drawing.Point(13, 382);
             this.contactNumber_text.MouseState = MaterialSkin.MouseState.HOVER;
             this.contactNumber_text.Name = "contactNumber_text";
             this.contactNumber_text.PasswordChar = '\0';
@@ -512,7 +512,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.contactName_text.BackColor = System.Drawing.Color.White;
             this.contactName_text.Depth = 0;
-            this.contactName_text.Hint = "Contact Name";
+            this.contactName_text.Hint = "Name";
             this.contactName_text.Location = new System.Drawing.Point(13, 351);
             this.contactName_text.MouseState = MaterialSkin.MouseState.HOVER;
             this.contactName_text.Name = "contactName_text";
@@ -611,6 +611,7 @@
             this.toAddress_text.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.toAddress_text.Depth = 0;
+            this.toAddress_text.Enabled = false;
             this.toAddress_text.Hint = "Enter a contact #";
             this.toAddress_text.Location = new System.Drawing.Point(60, 3);
             this.toAddress_text.MouseState = MaterialSkin.MouseState.HOVER;
@@ -660,11 +661,11 @@
             this.Conversation_list.FullRowSelect = true;
             this.Conversation_list.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.Conversation_list.HideSelection = false;
-            listViewItem5.UseItemStyleForSubItems = false;
-            listViewItem6.UseItemStyleForSubItems = false;
+            listViewItem13.UseItemStyleForSubItems = false;
+            listViewItem14.UseItemStyleForSubItems = false;
             this.Conversation_list.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6});
+            listViewItem13,
+            listViewItem14});
             this.Conversation_list.Location = new System.Drawing.Point(0, 26);
             this.Conversation_list.MultiSelect = false;
             this.Conversation_list.Name = "Conversation_list";
@@ -716,7 +717,10 @@
             this.Controls.Add(this.materialTabControl1);
             this.Controls.Add(this.compose_panel);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(344, 606);
+            this.MinimumSize = new System.Drawing.Size(344, 606);
             this.Name = "msMessenger";
+            this.ShowIcon = false;
             this.Sizable = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "msMessenger";

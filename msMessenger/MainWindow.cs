@@ -73,22 +73,23 @@ namespace msMessenger
             globalSettings.ActiveDID = Properties.Settings.Default.ActiveDID;
             activeDID_text.Text = Properties.Settings.Default.ActiveDID;
             globalSettings.LastServerUpdate = Properties.Settings.Default.LastServerUpdate;
-            serverUpdate_label.Text = globalSettings.LastServerUpdate;
+            serverUpdate_label.Text = "Messages Updated: " + globalSettings.LastServerUpdate;
             //Pull existing data
-            getSavedMessageData(@"C:\Users\Clinton\Desktop\SavedData.json");
+            getSavedMessageData();
             refreshContacts(false);
             refreshMainMessagesList(false);
             // If connection is available, pull texts since last update
             if (globalSettings.ActiveDID != "")
             {
                 MessageCheckTimer.Enabled = true;
-                XmlElement returnedData = getSMS(activeDID_text.Text, globalSettings.LastServerUpdate, "", "", "", "", ""); //NOPE Using fake date for testing
+                //XmlElement returnedData = getSMS(activeDID_text.Text, globalSettings.LastServerUpdate.Substring(0, 10), "", "", "", "", ""); //NOPE Using fake date for testing
+                XmlElement returnedData = getSMS(activeDID_text.Text,"2016-04-01", "", "", "", "3000", ""); //NOPE Using fake date for testing
                 if (returnedData != null)
                 {
-                    updateMessageData(returnedData);
+                    bool returned = updateMessageData(returnedData);
                     refreshMainMessagesList();
-                    globalSettings.LastServerUpdate = getNewTime();
-                    serverUpdate_label.Text = globalSettings.LastServerUpdate;
+                    globalSettings.LastServerUpdate = getNewDate();
+                    serverUpdate_label.Text = "Messages Updated: " + globalSettings.LastServerUpdate;
                     Properties.Settings.Default.LastServerUpdate = globalSettings.LastServerUpdate;
                 } else
                 {
@@ -101,7 +102,7 @@ namespace msMessenger
         {
             // SAVE THINGS
             Properties.Settings.Default.Save();
-            string saveLocation = @"C:\Users\Clinton\Desktop\SavedData.json";
+            string saveLocation = AppDomain.CurrentDomain.BaseDirectory.ToString() + "\\data.json";
 
             StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
@@ -212,6 +213,7 @@ namespace msMessenger
         {
             newMessageContent_text.Text = "";
             Conversation_list.Items.Clear();
+            toAddress_text.Enabled = true;
             toAddress_text.Text = "";
             toAddress_text.Focus();
             materialTabControl1.Visible = false;
@@ -235,10 +237,10 @@ namespace msMessenger
         {
             newMessageContent_text.Enabled = false;
             newMessage_Send.Enabled = false;
-            string asd = toAddress_text.Text;
+            toAddress_text.Enabled = false;
             TextMessage newmessage = new TextMessage();
-            newmessage.ContactName = asd;
-            newmessage.ContactNumber = parseContactToNumber(asd);
+            newmessage.ContactName = toAddress_text.Text;
+            newmessage.ContactNumber = parseContactToNumber(toAddress_text.Text);
             newmessage.Text = newMessageContent_text.Text;
             object result = sendTextMessage(newmessage);
 
@@ -257,6 +259,8 @@ namespace msMessenger
         {
             materialTabControl1.Visible = true;
             materialTabSelector1.Visible = true;
+            toAddress_text.Text = "";
+            Conversation_list.Items.Clear();
         }
 
         /*
@@ -404,7 +408,7 @@ namespace msMessenger
 
                 ListViewItem litem = new ListViewItem(new string[] { contactName_text.Text, contactNumber_text.Text });
                 ContactList.Items.Add(litem);
-
+                refreshMainMessagesList();
                 ContactList.Enabled = true;
                 ContactList.Height = 471;
                 AddContact_img.Show();
@@ -441,8 +445,10 @@ namespace msMessenger
             if (e.Button == MouseButtons.Left)
             {
                 // So much hate
+
                 populateConversationList(MainMessages_list.SelectedItems[0].Text);
                 toAddress_text.Text = MainMessages_list.SelectedItems[0].Text;
+                toAddress_text.Enabled = false;
                 for (int i = 0; i <= Conversation_list.Items.Count - 1; i++)
                 {
                     if (Conversation_list.Items[i].Text != "Me")
@@ -613,6 +619,10 @@ namespace msMessenger
             input.type = type;
             input.contact = contact;
             input.limit = "2000";
+            if (limit != "")
+            {
+                input.limit = limit;
+            }
             input.timezone = timezone;
 
             //Request Info
@@ -635,75 +645,12 @@ namespace msMessenger
 
         }
 
-        private void updateMessageData(XmlElement messages)
-        {
-            List<TextMessage> newMessages = new List<TextMessage>();
-            int count = 0;
-            bool canAdd = true;
-            for (int i = 0; i <= messages.ChildNodes.Count - 1; i++)
-            {
-                XmlElement message = (XmlElement)messages.ChildNodes[i];
-                TextMessage testData = new TextMessage();
-                testData.ID = message.ChildNodes[0].ChildNodes[1].InnerText;
-                testData.Timestamp = message.ChildNodes[1].ChildNodes[1].InnerText;
-                testData.Type = message.ChildNodes[2].ChildNodes[1].InnerText;
-                testData.DID = message.ChildNodes[3].ChildNodes[1].InnerText;
-                testData.ContactNumber = message.ChildNodes[4].ChildNodes[1].InnerText;
-                testData.ContactName = message.ChildNodes[4].ChildNodes[1].InnerText;
-                testData.Text = message.ChildNodes[5].ChildNodes[1].InnerText;
-                for (int j = 0; j <= messageData.Count - 1; j++)
-                {
-                    if (messageData[j].ID == testData.ID)
-                    {
-                        canAdd = false;
-                    }
-                }
-                if (canAdd == true)
-                {
-                    count++;
-                    Console.WriteLine("Adding new text...");
-                    newMessages.Add(testData);
-                }
-            }
-            for (int j = 0; j <= messageData.Count - 1; j++)
-            {
-                newMessages.Add(messageData[j]);
-            }
-            messageData.Clear();
-            messageData = newMessages;
-            Console.WriteLine("Total texts parsed: " + messages.ChildNodes.Count);
-            Console.WriteLine("Total texts added: " + count);
-
-        }
-
-        private void updateMessageData(TextMessage newMessage)
-        {
-            List<TextMessage> newMessages = new List<TextMessage>();
-            newMessages.Add(newMessage);
-            for (int j = 0; j <= messageData.Count - 1; j++)
-            {
-                newMessages.Add(messageData[j]);
-            }
-            messageData.Clear();
-            messageData = newMessages;
-        }
-
-        private void refreshContacts(bool refresh = true)
-        {
-            if (refresh)
-            {
-                ContactList.Items.Clear();
-            }
-            foreach (KeyValuePair<string, string> item in contactData)
-            {
-                ContactList.Items.Add(new ListViewItem(new string[] { item.Value, item.Key }));
-            }
-        }
-
         private bool sendTextMessage(TextMessage newMessage)
         {
             XmlElement result_status = null;
+            XmlElement result_id = null;
             XmlNode[] output = null;
+            List<TextMessage> update = new List<TextMessage>();
             ms.voip.VoIPms_Service soap = new ms.voip.VoIPms_Service();
             ms.voip.sendSMSInput input = new ms.voip.sendSMSInput();
             decimal charcount = newMessage.Text.Count();
@@ -724,25 +671,120 @@ namespace msMessenger
                 {
                     input.message = newMessage.Text.Substring((int)usedChar, ((int)charcount - (int)usedChar));
                 }
-
+                TextMessage insert = new TextMessage();
+                insert.Type = "0";
+                insert.ContactName = "Me";
+                insert.ContactNumber = newMessage.ContactNumber;
+                insert.DID = globalSettings.ActiveDID;
+                insert.Text = input.message;
                 output = (XmlNode[])soap.sendSMS(input);
                 result_status = (XmlElement)output.GetValue(1);
-                MessageBox.Show(result_status.ChildNodes[1].InnerText);
-                if (result_status.ChildNodes[1].InnerText != "success")
+                result_id = (XmlElement)output.GetValue(2);
+                
+
+
+
+                if (result_status.ChildNodes[1].InnerText == "success")
                 {
-                    mcount = 0;
+                    insert.ID = result_id.ChildNodes[1].InnerText;
+                    insert.Timestamp = getNewDate();
+                    update.Add(insert);
+                    Console.WriteLine("Applying boost!");
+                    MessageCheckTimer.Interval = 30000;
+                    BoostCheck.Enabled = true;
                 }
                 else
                 {
-                    mcount--;
+                    insert.ID = result_id.ChildNodes[1].InnerText;
+                    insert.Timestamp = result_id.ChildNodes[1].InnerText;
+                    update.Add(insert);
                 }
-                MessageCheckTimer.Interval = 15000;
-                BoostCheck.Enabled = true;
-                return false;
+                mcount--;
+
             }
+            update.Reverse();
+            bool returned = updateMessageData(null, update);
+            populateConversationList(newMessage.ContactNumber);
             return false;
         }
 
+        private bool updateMessageData(XmlElement xmlData = null, List<TextMessage> textData = null)
+        {
+            List<TextMessage> newMessages = new List<TextMessage>();
+
+            if (xmlData != null)
+            {
+                int count = 0;
+                bool canAdd = true;
+                for (int i = 0; i <= xmlData.ChildNodes.Count - 1; i++)
+                {
+                    XmlElement message = (XmlElement)xmlData.ChildNodes[i];
+                    TextMessage testData = new TextMessage();
+                    testData.ID = message.ChildNodes[0].ChildNodes[1].InnerText;
+                    testData.Timestamp = message.ChildNodes[1].ChildNodes[1].InnerText;
+                    testData.Type = message.ChildNodes[2].ChildNodes[1].InnerText;
+                    testData.DID = message.ChildNodes[3].ChildNodes[1].InnerText;
+                    testData.ContactNumber = message.ChildNodes[4].ChildNodes[1].InnerText;
+                    testData.ContactName = message.ChildNodes[4].ChildNodes[1].InnerText;
+                    testData.Text = message.ChildNodes[5].ChildNodes[1].InnerText;
+                    for (int j = 0; j <= messageData.Count - 1; j++)
+                    {
+                        if (messageData[j].ID == testData.ID)
+                        {
+                            canAdd = false;
+                        }
+                    }
+                    if (canAdd == true)
+                    {
+                        count++;
+                        Console.WriteLine("Adding new text...");
+                        newMessages.Add(testData);
+                    }
+                }
+                Console.WriteLine("Total texts parsed: " + xmlData.ChildNodes.Count);
+                Console.WriteLine("Total texts added: " + count);
+            }
+
+            if (textData != null)
+            {
+                newMessages = textData;
+                //newMessages.Add(textData);
+            }
+
+            for (int j = 0; j <= messageData.Count - 1; j++)
+            {
+                newMessages.Add(messageData[j]);
+            }
+
+            messageData.Clear();
+            messageData = newMessages;
+            return true;
+        }
+ 
+        /* private void updateMessageData(TextMessage newMessage)
+        {
+            List<TextMessage> newMessages = new List<TextMessage>();
+            newMessages.Add(newMessage);
+            for (int j = 0; j <= messageData.Count - 1; j++)
+            {
+                newMessages.Add(messageData[j]);
+            }
+            messageData.Clear();
+            messageData = newMessages;
+        }*/
+
+        private void refreshContacts(bool refresh = true)
+        {
+            if (refresh)
+            {
+                ContactList.Items.Clear();
+            }
+            foreach (KeyValuePair<string, string> item in contactData)
+            {
+                ContactList.Items.Add(new ListViewItem(new string[] { item.Value, item.Key }));
+            }
+        }
+        
         private bool getSavedMessageData(string saveLocation = null)
         {
             if (saveLocation == null)
@@ -754,6 +796,8 @@ namespace msMessenger
             {
                 string savedData = File.ReadAllText(saveLocation);
                 string valuetemp = "";
+                int c = 0;
+                int m = 0;
                 TextMessage item = new TextMessage();
                 JsonTextReader reader = new JsonTextReader(new StringReader(savedData));
                 string phone_name = "";
@@ -815,12 +859,14 @@ namespace msMessenger
                         {
                             item.Text = reader.Value.ToString();
                             messageData.Add(item);
+                            m++;
                             valuetemp = "";
                         }
 
                         if (valuetemp == "Number")
                         {
                             contactData.Add(reader.Value.ToString(), phone_name);
+                            c++;
                             valuetemp = "";
                         }
 
@@ -831,15 +877,23 @@ namespace msMessenger
                         }
                     }
                 }
+                Console.WriteLine("Loaded " + m + " message(s) and " + c + " contacts");
                 return true;
             }
             return false;
         }
 
-        public string getNewTime()
+        public string getNewDate(bool withTime = true)
         {
-            return DateTime.Now.Year.ToString("0000") + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00") + " " + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00") + ":" + DateTime.Now.Second.ToString("00");
+            if (withTime)
+            {
+                return DateTime.Now.Year.ToString("0000") + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00") + " " + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00") + ":" + DateTime.Now.Second.ToString("00");
+            } else
+            {
+                return DateTime.Now.Year.ToString("0000") + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00");
+            }
         }
+        
 
         #endregion
 
@@ -848,18 +902,24 @@ namespace msMessenger
         private void MessageCheckTimer_Tick(object sender, EventArgs e)
         {
             Console.WriteLine("Tick!...");
-
-            XmlElement returnedData = getSMS(globalSettings.ActiveDID, "", globalSettings.LastServerUpdate, "", "", "", "");
-            updateMessageData(returnedData);
+            XmlElement returnedData = getSMS(globalSettings.ActiveDID, "", globalSettings.LastServerUpdate.Substring(0, 10), "", "", "", "");
+            bool returned = updateMessageData(returnedData);
             refreshMainMessagesList();
-            globalSettings.LastServerUpdate = getNewTime();
+
+            if (toAddress_text.Text != "" && Conversation_list.Items.Count > 0)
+            {
+                populateConversationList(toAddress_text.Text);
+            }
+
+            globalSettings.LastServerUpdate = getNewDate();
             Properties.Settings.Default.LastServerUpdate = globalSettings.LastServerUpdate;
-            serverUpdate_label.Text = globalSettings.LastServerUpdate;
+            serverUpdate_label.Text = "Messages Updated: " + globalSettings.LastServerUpdate;
             Console.WriteLine("...Tock!");
         }
 
         private void BoostCheck_Tick(object sender, EventArgs e)
         {
+            Console.WriteLine("Removing boost!");
             MessageCheckTimer.Interval = 900000;
             BoostCheck.Enabled = false;
         }
@@ -898,6 +958,7 @@ namespace msMessenger
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Applying boost!");
             MessageCheckTimer.Interval = 30000;
             BoostCheck.Enabled = true;
         }
