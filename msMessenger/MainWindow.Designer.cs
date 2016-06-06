@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(msMessenger));
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Ex Girlfriend", System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)))),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Why don\'t you answer me!", System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "3 Seconds Ago", System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))))}, 0);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Ex Girlfriend", System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40))))), System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248))))), new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold)),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Why don\'t you answer me!", System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI", 9.75F)),
             new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "50 Seconds Ago", System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110))))), System.Drawing.SystemColors.Window, new System.Drawing.Font("Segoe UI Light", 8.25F))}, 0);
@@ -52,6 +52,7 @@
             this.Timestamp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.Options_tab = new System.Windows.Forms.TabPage();
+            this.serverUpdate_label = new System.Windows.Forms.Label();
             this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.activeDID_text = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.voipTestConnect_btn = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -91,7 +92,6 @@
             this.newMessageContent_text = new System.Windows.Forms.TextBox();
             this.MessageCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.BoostCheck = new System.Windows.Forms.Timer(this.components);
-            this.serverUpdate_label = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.message_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ComposeMessage_img)).BeginInit();
@@ -239,6 +239,15 @@
             this.Options_tab.Size = new System.Drawing.Size(345, 477);
             this.Options_tab.TabIndex = 1;
             this.Options_tab.Text = "Options";
+            // 
+            // serverUpdate_label
+            // 
+            this.serverUpdate_label.AutoSize = true;
+            this.serverUpdate_label.Location = new System.Drawing.Point(5, 454);
+            this.serverUpdate_label.Name = "serverUpdate_label";
+            this.serverUpdate_label.Size = new System.Drawing.Size(99, 13);
+            this.serverUpdate_label.TabIndex = 25;
+            this.serverUpdate_label.Text = "Last Server Update";
             // 
             // materialRaisedButton1
             // 
@@ -416,6 +425,7 @@
             this.AddContact_img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.AddContact_img.TabIndex = 18;
             this.AddContact_img.TabStop = false;
+            this.AddContact_img.Click += new System.EventHandler(this.AddContact_img_Click);
             // 
             // ContactList
             // 
@@ -650,11 +660,11 @@
             this.Conversation_list.FullRowSelect = true;
             this.Conversation_list.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.Conversation_list.HideSelection = false;
-            listViewItem7.UseItemStyleForSubItems = false;
-            listViewItem8.UseItemStyleForSubItems = false;
+            listViewItem5.UseItemStyleForSubItems = false;
+            listViewItem6.UseItemStyleForSubItems = false;
             this.Conversation_list.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem7,
-            listViewItem8});
+            listViewItem5,
+            listViewItem6});
             this.Conversation_list.Location = new System.Drawing.Point(0, 26);
             this.Conversation_list.MultiSelect = false;
             this.Conversation_list.Name = "Conversation_list";
@@ -696,15 +706,6 @@
             // 
             this.BoostCheck.Interval = 300000;
             this.BoostCheck.Tick += new System.EventHandler(this.BoostCheck_Tick);
-            // 
-            // serverUpdate_label
-            // 
-            this.serverUpdate_label.AutoSize = true;
-            this.serverUpdate_label.Location = new System.Drawing.Point(5, 454);
-            this.serverUpdate_label.Name = "serverUpdate_label";
-            this.serverUpdate_label.Size = new System.Drawing.Size(99, 13);
-            this.serverUpdate_label.TabIndex = 25;
-            this.serverUpdate_label.Text = "Last Server Update";
             // 
             // msMessenger
             // 
