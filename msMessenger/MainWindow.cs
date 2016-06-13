@@ -19,6 +19,7 @@
  * 
  */
 
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,6 +36,8 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.IO;
 using Newtonsoft.Json;
+using System.Net;
+using System.Net.Sockets;
 
 namespace msMessenger
 {
@@ -44,11 +47,13 @@ namespace msMessenger
         #region "Intialize, Load, and Close"
 
         private readonly MaterialSkinManager materialSkinManager;
-        static byte[] entropy = System.Text.Encoding.Unicode.GetBytes("And now, instead of mounting barded steeds");
+        
         public List<TextMessage> messageData = new List<TextMessage>();
         public Dictionary<string, string> contactData = new Dictionary<string, string>();
-        public SettingsCollection globalSettings = new SettingsCollection();
-
+        public SettingsCollection activeSettings = new SettingsCollection();
+        bool setup = true;
+        public WebServer ws;
+        
         public msMessenger()
         {
             InitializeComponent();
@@ -59,101 +64,157 @@ namespace msMessenger
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Red800, Primary.Red900, Primary.Red500, Accent.Red200, TextShade.WHITE);
         }
 
+
+        public string SendResponse(HttpListenerRequest request)
+        {
+            Console.WriteLine("Received callback! Checking for messages...");
+            if (activeSettings.ActiveDID != "")
+            {
+                object output = sms.getSMS(activeSettings.Username, activeSettings.Password, activeSettings.ActiveDID, activeSettings.LastServerUpdate.Substring(0, 10));
+                if (output is XmlElement)
+                {
+                    XmlElement smsData = (XmlElement)output;
+                    updateMessageData(smsData);
+                    refreshMainMessagesList();
+                    activeSettings.LastServerUpdate = utilities.getNewDateStr();
+                    serverUpdate_label.Text = "Messages Updated: " + activeSettings.LastServerUpdate;
+                    Properties.Settings.Default.LastServerUpdate = activeSettings.LastServerUpdate;
+                }
+                else
+                {
+                    Console.WriteLine("Failed: getSMS: " + (string)output);
+                }
+            }
+            return "{ \"status\": \"success\" }";
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Load Settings
-            if (Properties.Settings.Default.Password != "" && Properties.Settings.Default.Username != "")
+            if (Properties.Settings.Default.ActiveDID == "")
             {
-                voipPassword_input.Text = Properties.Settings.Default.Password; // kinda skipping the encryption atm.....
-                voipUsername_input.Text = Properties.Settings.Default.Username; // kinda skipping the encryption atm.....
-                globalSettings.Username = Properties.Settings.Default.Username;
-                globalSettings.Password = Properties.Settings.Default.Password;
-                rememberCredentials_check.Checked = true;
+                Setup settingsForm = new Setup();
+                DialogResult result = settingsForm.ShowDialog();
+                if (result == DialogResult.Abort)
+                {
+                    setup = false;
+                    Application.Exit();
+                }
             }
-            globalSettings.ActiveDID = Properties.Settings.Default.ActiveDID;
+            ws = new WebServer(SendResponse, "http://*:11010/");
+            ws.Run();
+            
+            MainMessagePanel.HorizontalScroll.Enabled = false;
+            MainMessagePanel.VerticalScroll.Enabled = true;
+            
+            systemUID_text.Text = FingerPrint.Value();
+            
+                voipUsername_input.Text = Properties.Settings.Default.Username;
+                activeSettings.Username = Properties.Settings.Default.Username;
+
+                // Decrypt
+                byte[] data = Convert.FromBase64String(Properties.Settings.Default.Password);
+                byte[] user = Convert.FromBase64String(Properties.Settings.Default.userKey);
+                byte[] machine = Convert.FromBase64String(Properties.Settings.Default.machineKey);
+                byte[] decdata = Encryption.AESThenHMAC.SimpleDecrypt(data, machine, user);
+                voipPassword_input.Text = Encoding.UTF8.GetString(decdata);
+                activeSettings.Password = voipPassword_input.Text;
+                rememberCredentials_check.Checked = true;
+            activeSettings.ActiveDID = Properties.Settings.Default.ActiveDID;
             activeDID_text.Text = Properties.Settings.Default.ActiveDID;
-            globalSettings.LastServerUpdate = Properties.Settings.Default.LastServerUpdate;
-            serverUpdate_label.Text = "Messages Updated: " + globalSettings.LastServerUpdate;
+            activeSettings.LastServerUpdate = Properties.Settings.Default.LastServerUpdate;
+            serverUpdate_label.Text = "Messages Updated: " + activeSettings.LastServerUpdate;
             //Pull existing data
             getSavedMessageData();
             refreshContacts(false);
             refreshMainMessagesList(false);
+
+            // icon stuff
+            NotifyIcon.Icon = Properties.Resources.Messenger_icon_blank_r_32;
+            this.Icon = Properties.Resources.Messenger_icon_blank_r_32;
+
             // If connection is available, pull texts since last update
-            if (globalSettings.ActiveDID != "")
+            if (activeSettings.ActiveDID != "")
             {
                 MessageCheckTimer.Enabled = true;
-                //XmlElement returnedData = getSMS(activeDID_text.Text, globalSettings.LastServerUpdate.Substring(0, 10), "", "", "", "", ""); //NOPE Using fake date for testing
-                XmlElement returnedData = getSMS(activeDID_text.Text,"2016-04-01", "", "", "", "3000", ""); //NOPE Using fake date for testing
-                if (returnedData != null)
+                //object output = null; 
+                //object output = sms.getSMS(activeSettings.Username, activeSettings.Password, activeSettings.ActiveDID, activeSettings.LastServerUpdate.Substring(0, 10));
+                object output = sms.getSMS(activeSettings.Username, activeSettings.Password, activeSettings.ActiveDID, activeSettings.LastServerUpdate.Substring(0, 10));
+                if (output is XmlElement)
                 {
-                    bool returned = updateMessageData(returnedData);
+                    XmlElement smsData = (XmlElement)output;
+                    updateMessageData(smsData);
                     refreshMainMessagesList();
-                    globalSettings.LastServerUpdate = getNewDate();
-                    serverUpdate_label.Text = "Messages Updated: " + globalSettings.LastServerUpdate;
-                    Properties.Settings.Default.LastServerUpdate = globalSettings.LastServerUpdate;
+                    activeSettings.LastServerUpdate = utilities.getNewDateStr();
+                    serverUpdate_label.Text = "Messages Updated: " + activeSettings.LastServerUpdate;
+                    Properties.Settings.Default.LastServerUpdate = activeSettings.LastServerUpdate;
                 } else
                 {
-                    Console.WriteLine("Failed to connect!");
+                    Console.WriteLine("Failed on load: getSMS: " + (string)output);
                 }
             }
+            
         }
 
         private void msMessenger_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // SAVE THINGS
-            Properties.Settings.Default.Save();
-            string saveLocation = AppDomain.CurrentDomain.BaseDirectory.ToString() + "\\data.json";
-
-            StringBuilder sb = new StringBuilder();
-            StringWriter sw = new StringWriter(sb);
-            using (JsonWriter writer = new JsonTextWriter(sw))
+            if (setup == true)
             {
-                writer.Formatting = Newtonsoft.Json.Formatting.Indented;
-                writer.StringEscapeHandling = StringEscapeHandling.EscapeNonAscii;
+                ws.Stop();
+                NotifyIcon.Visible = false;
+                // SAVE THINGS
+                Properties.Settings.Default.Save();
+                string saveLocation = AppDomain.CurrentDomain.BaseDirectory.ToString() + "\\data.json";
 
-                writer.WriteStartObject();
-                writer.WritePropertyName("DatabaseVersion");
-                writer.WriteValue("1.0");
-                foreach (KeyValuePair<string, string> item in contactData)
+                StringBuilder sb = new StringBuilder();
+                StringWriter sw = new StringWriter(sb);
+                using (JsonWriter writer = new JsonTextWriter(sw))
                 {
-                    writer.WritePropertyName("CONTACT");
+                    writer.Formatting = Newtonsoft.Json.Formatting.Indented;
+                    writer.StringEscapeHandling = StringEscapeHandling.EscapeNonAscii;
+
                     writer.WriteStartObject();
-                    writer.WritePropertyName("Name");
-                    writer.WriteValue(item.Value);
-                    writer.WritePropertyName("Number");
-                    writer.WriteValue(item.Key);
+                    writer.WritePropertyName("DatabaseVersion");
+                    writer.WriteValue("1.0");
+                    foreach (KeyValuePair<string, string> item in contactData)
+                    {
+                        writer.WritePropertyName("CONTACT");
+                        writer.WriteStartObject();
+                        writer.WritePropertyName("Name");
+                        writer.WriteValue(item.Value);
+                        writer.WritePropertyName("Number");
+                        writer.WriteValue(item.Key);
+                        writer.WriteEndObject();
+                    }
+
+
+                    foreach (TextMessage item in messageData)
+                    {
+                        writer.WritePropertyName("SMS");
+                        writer.WriteStartObject();
+                        writer.WritePropertyName("ID");
+                        writer.WriteValue(item.ID);
+                        writer.WritePropertyName("Timestamp");
+                        writer.WriteValue(item.Timestamp);
+                        writer.WritePropertyName("Type");
+                        writer.WriteValue(item.Type);
+                        writer.WritePropertyName("DID");
+                        writer.WriteValue(item.DID);
+                        writer.WritePropertyName("ContactNumber");
+                        writer.WriteValue(item.ContactNumber);
+                        writer.WritePropertyName("Unread");
+                        writer.WriteValue(item.Unread);
+                        writer.WritePropertyName("Message");
+                        writer.WriteValue(item.Message);
+                        writer.WriteEndObject();
+                    }
                     writer.WriteEndObject();
                 }
 
-
-                foreach (TextMessage item in messageData)
-                {
-                    writer.WritePropertyName("SMS");
-                    writer.WriteStartObject();
-                    writer.WritePropertyName("ID");
-                    writer.WriteValue(item.ID);
-                    writer.WritePropertyName("Timestamp");
-                    writer.WriteValue(item.Timestamp);
-                    writer.WritePropertyName("Type");
-                    writer.WriteValue(item.Type);
-                    writer.WritePropertyName("DID");
-                    writer.WriteValue(item.DID);
-                    writer.WritePropertyName("ContactNumber");
-                    writer.WriteValue(item.ContactNumber);
-                    writer.WritePropertyName("ContactName");
-                    writer.WriteValue(item.ContactName);
-                    writer.WritePropertyName("Text");
-                    writer.WriteValue(item.Text);
-                    writer.WriteEndObject();
-                }
-                writer.WriteEndObject();
+                File.WriteAllText(saveLocation, sb.ToString());
             }
-
-            File.WriteAllText(saveLocation, sb.ToString());
-
         }
 
-#endregion
+        #endregion
 
         #region "GUI Updates"
 
@@ -168,6 +229,7 @@ namespace msMessenger
             //   Primary.Red800, Primary.Red900, Primary.Red500, Accent.Red200, TextShade.WHITE);
             if (materialSkinManager.Theme == MaterialSkinManager.Themes.DARK)
             {
+                /*
                 MainMessages_list.BackColor = Color.FromArgb(50, 50, 50);
                 message_tab.BackColor = Color.FromArgb(50, 50, 50);
                 ComposeMessage_img.BackColor = Color.FromArgb(50, 50, 50);
@@ -182,11 +244,12 @@ namespace msMessenger
                     MainMessages_list.Items[i].SubItems[1].ForeColor = Color.White;
                     MainMessages_list.Items[i].SubItems[2].ForeColor = Color.White;
                 }
+                */
 
             }
             else
             {
-
+                /*
                 for (int i = 0; i <= MainMessages_list.Items.Count - 1; i++)
                 {
                     if (i % 2 != 0)
@@ -203,6 +266,7 @@ namespace msMessenger
                 MainMessages_list.BackColor = Color.White;
                 message_tab.BackColor = Color.White;
                 ComposeMessage_img.BackColor = Color.White;
+                */
             }
         }
 
@@ -212,7 +276,7 @@ namespace msMessenger
         private void ComposeMessage_img_Click(object sender, EventArgs e)
         {
             newMessageContent_text.Text = "";
-            Conversation_list.Items.Clear();
+            Conversation_list.Controls.Clear();
             toAddress_text.Enabled = true;
             toAddress_text.Text = "";
             toAddress_text.Focus();
@@ -226,6 +290,26 @@ namespace msMessenger
             if (newMessageContent_text.Text.Length > 0)
             {
                 newMessage_Send.Enabled = true;
+                if (e.Shift == true && e.KeyCode == Keys.Enter)
+                {
+
+                    newMessageContent_text.Enabled = false;
+                    newMessage_Send.Enabled = false;
+                    toAddress_text.Enabled = false;
+                    string destination = parseContactToNumber(toAddress_text.Text);
+                    object output = sms.sendSMS(activeSettings.Username, activeSettings.Password, activeSettings.ActiveDID, destination, newMessageContent_text.Text);
+                    if (output is List<TextMessage>) // only success will be a List<> at the moment failures return strings.
+                    {
+                        updateMessageData(null, (List<TextMessage>)output); //update the sms database
+                        populateConversationList(destination); //repopulate the conversation list to insert the new messages.
+                    }
+                    newMessageContent_text.Text = "";
+                    newMessage_Send.Enabled = true;
+                    newMessageContent_text.Enabled = true;
+                    characterCount_label.Text = "0 / 160";
+                    newMessageContent_text.Focus();
+
+                }
             }
             else
             {
@@ -238,16 +322,16 @@ namespace msMessenger
             newMessageContent_text.Enabled = false;
             newMessage_Send.Enabled = false;
             toAddress_text.Enabled = false;
-            TextMessage newmessage = new TextMessage();
-            newmessage.ContactName = toAddress_text.Text;
-            newmessage.ContactNumber = parseContactToNumber(toAddress_text.Text);
-            newmessage.Text = newMessageContent_text.Text;
-            object result = sendTextMessage(newmessage);
+            string destination = parseContactToNumber(toAddress_text.Text);
+            object output = sms.sendSMS(activeSettings.Username, activeSettings.Password, activeSettings.ActiveDID, destination, newMessageContent_text.Text);
 
-            if (result is bool)
+            if (output is List<TextMessage>) // only success will be a List<> at the moment failures return strings.
             {
-                // going to add this soon... updateMessageData()
+                updateMessageData(null, (List<TextMessage>)output); //update the sms database
+                populateConversationList(destination); //repopulate the conversation list to insert the new messages.
             }
+
+
             newMessageContent_text.Text = "";
             newMessage_Send.Enabled = true;
             newMessageContent_text.Enabled = true;
@@ -260,7 +344,7 @@ namespace msMessenger
             materialTabControl1.Visible = true;
             materialTabSelector1.Visible = true;
             toAddress_text.Text = "";
-            Conversation_list.Items.Clear();
+            Conversation_list.Controls.Clear();
         }
 
         /*
@@ -339,7 +423,7 @@ namespace msMessenger
                         Properties.Settings.Default.Save();
                     }
 
-
+                    callbackUrl_text.Text = did.ChildNodes[26].ChildNodes[1].InnerText;
                     for (int j = 0; j <= did.ChildNodes.Count - 1; j++)
                     {
 
@@ -356,6 +440,37 @@ namespace msMessenger
             voipUsername_input.Enabled = true;
             voipPassword_input.Enabled = true;
             voipTestConnect_btn.Enabled = true;
+        }
+
+        private void callbackset_button_Click(object sender, EventArgs e)
+        {
+            callbackset_button.Text = "Setting Callback...";
+            XmlElement result_status = null;
+            XmlNode[] output = null;
+            ms.voip.VoIPms_Service soap = new ms.voip.VoIPms_Service();
+            ms.voip.setSMSInput input = new ms.voip.setSMSInput();
+
+            input.api_password = activeSettings.Password;
+            input.api_username = activeSettings.Username;
+            input.did = activeSettings.ActiveDID;
+            input.enable = "1";
+            input.url_callback_enable = "1";
+            input.url_callback = callbackUrl_text.Text;
+            input.url_callback_retry = "0";
+
+            output = (XmlNode[])soap.setSMS(input);
+            result_status = (XmlElement)output.GetValue(1);
+
+
+            if (result_status.ChildNodes[1].InnerText == "success")
+            {
+                //result_id = (XmlElement)output.GetValue(2);
+                callbackset_button.Text = "Success!";
+            }
+            else
+            {
+                callbackset_button.Text = result_status.ChildNodes[1].InnerText;
+            }
         }
 
         /*
@@ -436,7 +551,7 @@ namespace msMessenger
                 ContactList.SelectedItems[0].Remove();
             }
         }
-        
+
         /*
          * Main message list
          */
@@ -445,7 +560,7 @@ namespace msMessenger
             if (e.Button == MouseButtons.Left)
             {
                 // So much hate
-
+                /*
                 populateConversationList(MainMessages_list.SelectedItems[0].Text);
                 toAddress_text.Text = MainMessages_list.SelectedItems[0].Text;
                 toAddress_text.Enabled = false;
@@ -456,7 +571,7 @@ namespace msMessenger
                         Conversation_list.Items[i].Text = MainMessages_list.SelectedItems[0].Text;
                     }
                 }
-                
+                */
                 newMessageContent_text.Focus();
                 materialTabControl1.Visible = false;
                 materialTabSelector1.Visible = false;
@@ -464,7 +579,7 @@ namespace msMessenger
         }
 
         #endregion
-        
+
         #region "Data Management Methods"
 
         /*
@@ -482,7 +597,8 @@ namespace msMessenger
             if (!isNumeric)
             {
                 return contactData.FirstOrDefault(x => x.Value == data).Key;
-            } else
+            }
+            else
             {
                 return data;
             }
@@ -490,12 +606,12 @@ namespace msMessenger
 
         private void populateConversationList(string contact)
         {
-            Conversation_list.Items.Clear();
+            Conversation_list.Controls.Clear();
             string contactLookup = contact;
             contactLookup = parseContactToNumber(contact);
-            
-           
-                foreach (TextMessage item in messageData)
+
+
+            foreach (TextMessage item in messageData)
             {
                 if (item.ContactNumber == contactLookup)
                 {
@@ -504,25 +620,17 @@ namespace msMessenger
                     {
                         who = "Me";
                     }
-                    ListViewItem text = new ListViewItem(new string[] { who, item.Text, item.Timestamp }, 0);
+                    ListViewItem text = new ListViewItem(new string[] { who, item.Message, item.Timestamp }, 0);
                     text.UseItemStyleForSubItems = false;
-
-                    // Font for contact
-                    text.SubItems[0].Font = new Font("Segoe UI Semibold", 10, FontStyle.Bold, GraphicsUnit.Point);
                     text.SubItems[0].ForeColor = Color.FromArgb(40, 40, 40);
-
-                    // Font for message data
-                    text.SubItems[1].Font = new Font("Segoe UI", 10, FontStyle.Regular, GraphicsUnit.Point);
                     text.SubItems[1].ForeColor = Color.FromArgb(65, 65, 65);
-
-                    // Font for timestamp
-                    text.SubItems[2].Font = new Font("Segoe UI", 8, FontStyle.Regular, GraphicsUnit.Point);
                     text.SubItems[2].ForeColor = Color.FromArgb(110, 110, 110);
                     if (who == "Me")
                     {
                         text.BackColor = Color.FromArgb(240, 240, 240);
+
                     }
-                    Conversation_list.Items.Add(text);
+                    //Conversation_list.Items.Add(text);
                 }
             }
 
@@ -535,32 +643,37 @@ namespace msMessenger
         {
             if (refresh)
             {
-                MainMessages_list.Clear();
+                MainMessagePanel.Controls.Clear();
             }
             List<string> existCheckList = new List<string>();
-            string contactFill = "";
-            foreach (TextMessage text in messageData)
+            string contactName = "";
+            foreach (TextMessage item in messageData)
             {
-                if (!existCheckList.Contains(text.ContactNumber))
+                if (!existCheckList.Contains(item.ContactNumber))
                 {
-                    if (contactData.ContainsKey(text.ContactNumber))
+                    contactName = item.ContactNumber;
+                    if (contactData.ContainsKey(item.ContactNumber))
                     {
-                        contactFill = contactData[text.ContactNumber];
-                    } else 
-                    {
-                        contactFill = text.ContactNumber;
+                        contactName = contactData[item.ContactNumber];
                     }
-                    ListViewItem item = new ListViewItem(new string[] { contactFill, text.Text, text.Timestamp }, 0);
+                    Message.message m = new Message.message();
+                    m.messageName = contactName;
+                    m.messageText = item.Message;
+                    m.messageTimestamp = item.Timestamp;
+                    MainMessagePanel.Controls.Add(m);
 
-                    item.UseItemStyleForSubItems = false;
-                    item.SubItems[0].Font = new Font("Segoe UI Semibold", 10, FontStyle.Bold, GraphicsUnit.Point);
-                    item.SubItems[0].ForeColor = Color.FromArgb(40, 40, 40);
-                    item.SubItems[1].Font = new Font("Segoe UI", 10, FontStyle.Regular, GraphicsUnit.Point);
-                    item.SubItems[1].ForeColor = Color.FromArgb(65, 65, 65);
-                    item.SubItems[2].Font = new Font("Segoe UI", 8, FontStyle.Regular, GraphicsUnit.Point);
-                    item.SubItems[2].ForeColor = Color.FromArgb(110, 110, 110);
-                    MainMessages_list.Items.Add(item);
-                    existCheckList.Add(text.ContactNumber);
+
+                    /*
+                    ListViewItem text = new ListViewItem(new string[] { contactName, item.Message, item.Timestamp }, 0);
+                    text.UseItemStyleForSubItems = false;
+                    text.SubItems[0].ForeColor = Color.FromArgb(40, 40, 40);
+
+                    text.SubItems[1].ForeColor = Color.FromArgb(65, 65, 65);
+                    text.SubItems[2].ForeColor = Color.FromArgb(110, 110, 110);
+
+                    MainMessages_list.Items.Add(text);
+                    */
+                    existCheckList.Add(item.ContactNumber);
                 }
             }
         }
@@ -586,7 +699,7 @@ namespace msMessenger
                 testData.Type = message.ChildNodes[2].ChildNodes[1].InnerText;
                 testData.DID = message.ChildNodes[3].ChildNodes[1].InnerText;
                 testData.ContactNumber = message.ChildNodes[4].ChildNodes[1].InnerText;
-                testData.Text = message.ChildNodes[5].ChildNodes[1].InnerText;
+                testData.Message = message.ChildNodes[5].ChildNodes[1].InnerText;
 
                 // If it doesn't exist in the database, add it.
                 if (!messageData.Contains(testData))
@@ -595,120 +708,10 @@ namespace msMessenger
                 }
             }
         }
+
         
-        public XmlElement getSMS(string did, string from = "", string to = "", string type = "", string contact = "", string limit = "", string timezone = "")
-        {
-            Console.WriteLine("Updating Messages from " + from);
-            ms.voip.VoIPms_Service soap = new ms.voip.VoIPms_Service();
-            ms.voip.getSMSInput input = new ms.voip.getSMSInput();
-            XmlNode[] output;
 
-            //XML Elements
-            System.Xml.XmlElement result_status = null;
-            XmlElement messages = null;
-
-            //String Vars
-            string status = null;
-
-            //Fill Input Object
-            input.api_username = globalSettings.Username;
-            input.api_password = globalSettings.Password;
-            input.did = did;
-            input.from = from;
-            input.to = to;
-            input.type = type;
-            input.contact = contact;
-            input.limit = "2000";
-            if (limit != "")
-            {
-                input.limit = limit;
-            }
-            input.timezone = timezone;
-
-            //Request Info
-            output = (XmlNode[])soap.getSMS(input);
-
-            result_status = (XmlElement)output.GetValue(1);
-
-            status = result_status.ChildNodes[1].InnerText;
-
-            if (status == "success")
-            {
-                messages = (XmlElement)output.GetValue(2);
-                Console.WriteLine("# Retreived: " + messages.ChildNodes[1].ChildNodes.Count.ToString());
-                return (XmlElement)messages.ChildNodes[1];
-            }
-            else
-            {
-                return null;
-            }
-
-        }
-
-        private bool sendTextMessage(TextMessage newMessage)
-        {
-            XmlElement result_status = null;
-            XmlElement result_id = null;
-            XmlNode[] output = null;
-            List<TextMessage> update = new List<TextMessage>();
-            ms.voip.VoIPms_Service soap = new ms.voip.VoIPms_Service();
-            ms.voip.sendSMSInput input = new ms.voip.sendSMSInput();
-            decimal charcount = newMessage.Text.Count();
-            decimal usedChar = 0;
-            input.api_username = globalSettings.Username;
-            input.api_password = globalSettings.Password;
-            input.did = globalSettings.ActiveDID;
-            input.dst = newMessage.ContactNumber;
-            int mcount = (int)Math.Ceiling(charcount / 160);
-            while (mcount != 0)
-            {
-                if (mcount > 1)
-                {
-                    input.message = newMessage.Text.Substring((int)usedChar, 160);
-                    usedChar += 160;
-                }
-                else
-                {
-                    input.message = newMessage.Text.Substring((int)usedChar, ((int)charcount - (int)usedChar));
-                }
-                TextMessage insert = new TextMessage();
-                insert.Type = "0";
-                insert.ContactName = "Me";
-                insert.ContactNumber = newMessage.ContactNumber;
-                insert.DID = globalSettings.ActiveDID;
-                insert.Text = input.message;
-                output = (XmlNode[])soap.sendSMS(input);
-                result_status = (XmlElement)output.GetValue(1);
-                result_id = (XmlElement)output.GetValue(2);
-                
-
-
-
-                if (result_status.ChildNodes[1].InnerText == "success")
-                {
-                    insert.ID = result_id.ChildNodes[1].InnerText;
-                    insert.Timestamp = getNewDate();
-                    update.Add(insert);
-                    Console.WriteLine("Applying boost!");
-                    MessageCheckTimer.Interval = 30000;
-                    BoostCheck.Enabled = true;
-                }
-                else
-                {
-                    insert.ID = result_id.ChildNodes[1].InnerText;
-                    insert.Timestamp = result_id.ChildNodes[1].InnerText;
-                    update.Add(insert);
-                }
-                mcount--;
-
-            }
-            update.Reverse();
-            bool returned = updateMessageData(null, update);
-            populateConversationList(newMessage.ContactNumber);
-            return false;
-        }
-
-        private bool updateMessageData(XmlElement xmlData = null, List<TextMessage> textData = null)
+        public bool updateMessageData(XmlElement xmlData = null, List<TextMessage> textData = null)
         {
             List<TextMessage> newMessages = new List<TextMessage>();
 
@@ -725,8 +728,8 @@ namespace msMessenger
                     testData.Type = message.ChildNodes[2].ChildNodes[1].InnerText;
                     testData.DID = message.ChildNodes[3].ChildNodes[1].InnerText;
                     testData.ContactNumber = message.ChildNodes[4].ChildNodes[1].InnerText;
-                    testData.ContactName = message.ChildNodes[4].ChildNodes[1].InnerText;
-                    testData.Text = message.ChildNodes[5].ChildNodes[1].InnerText;
+                    testData.Message = message.ChildNodes[5].ChildNodes[1].InnerText;
+                    testData.Unread = true;
                     for (int j = 0; j <= messageData.Count - 1; j++)
                     {
                         if (messageData[j].ID == testData.ID)
@@ -743,6 +746,19 @@ namespace msMessenger
                 }
                 Console.WriteLine("Total texts parsed: " + xmlData.ChildNodes.Count);
                 Console.WriteLine("Total texts added: " + count);
+                if (count > 0)
+                {
+                    // Notification sound and tray icon
+                    NotifyIcon.BalloonTipText = count + " New Message";
+                    if (count > 1)
+                        NotifyIcon.BalloonTipText += "s";
+                    NotifyIcon.BalloonTipTitle = "New Messages";
+                    NotifyIcon.ShowBalloonTip(7000);
+                    
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+                    player.Stream = Properties.Resources.notification;
+                    player.Play();
+                }
             }
 
             if (textData != null)
@@ -760,7 +776,7 @@ namespace msMessenger
             messageData = newMessages;
             return true;
         }
- 
+
         /* private void updateMessageData(TextMessage newMessage)
         {
             List<TextMessage> newMessages = new List<TextMessage>();
@@ -784,7 +800,7 @@ namespace msMessenger
                 ContactList.Items.Add(new ListViewItem(new string[] { item.Value, item.Key }));
             }
         }
-        
+
         private bool getSavedMessageData(string saveLocation = null)
         {
             if (saveLocation == null)
@@ -846,18 +862,15 @@ namespace msMessenger
                             item.ContactNumber = reader.Value.ToString();
                             valuetemp = "";
                         }
-                        if (valuetemp == "ContactName")
+                        if (valuetemp == "Unread")
                         {
-                            item.ContactName = null;
-                            if (reader.Value != null && reader.Value.ToString() != "Text")
-                            {
-                                item.ContactName = reader.Value.ToString();
-                            }
+                            item.Unread = (bool)item.Unread;
+
                             valuetemp = "";
                         }
-                        if (valuetemp == "Text")
+                        if (valuetemp == "Message")
                         {
-                            item.Text = reader.Value.ToString();
+                            item.Message = reader.Value.ToString();
                             messageData.Add(item);
                             m++;
                             valuetemp = "";
@@ -883,17 +896,8 @@ namespace msMessenger
             return false;
         }
 
-        public string getNewDate(bool withTime = true)
-        {
-            if (withTime)
-            {
-                return DateTime.Now.Year.ToString("0000") + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00") + " " + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00") + ":" + DateTime.Now.Second.ToString("00");
-            } else
-            {
-                return DateTime.Now.Year.ToString("0000") + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00");
-            }
-        }
         
+
 
         #endregion
 
@@ -902,45 +906,32 @@ namespace msMessenger
         private void MessageCheckTimer_Tick(object sender, EventArgs e)
         {
             Console.WriteLine("Tick!...");
-            XmlElement returnedData = getSMS(globalSettings.ActiveDID, "", globalSettings.LastServerUpdate.Substring(0, 10), "", "", "", "");
-            bool returned = updateMessageData(returnedData);
-            refreshMainMessagesList();
-
-            if (toAddress_text.Text != "" && Conversation_list.Items.Count > 0)
+            object output = sms.getSMS(activeSettings.Username, activeSettings.Password, activeSettings.ActiveDID, activeSettings.LastServerUpdate.Substring(0, 10));
+            if (output is XmlElement)
             {
-                populateConversationList(toAddress_text.Text);
-            }
+                XmlElement getSMSData = (XmlElement)output;
+                bool returned = updateMessageData(getSMSData);
+                refreshMainMessagesList();
 
-            globalSettings.LastServerUpdate = getNewDate();
-            Properties.Settings.Default.LastServerUpdate = globalSettings.LastServerUpdate;
-            serverUpdate_label.Text = "Messages Updated: " + globalSettings.LastServerUpdate;
-            Console.WriteLine("...Tock!");
-        }
+                if (toAddress_text.Text != "" && Conversation_list.Controls.Count > 0)
+                {
+                    populateConversationList(toAddress_text.Text);
+                }
 
-        private void BoostCheck_Tick(object sender, EventArgs e)
-        {
-            Console.WriteLine("Removing boost!");
-            MessageCheckTimer.Interval = 900000;
-            BoostCheck.Enabled = false;
+                activeSettings.LastServerUpdate = utilities.getNewDateStr();
+                Properties.Settings.Default.LastServerUpdate = activeSettings.LastServerUpdate;
+                serverUpdate_label.Text = "Messages Updated: " + activeSettings.LastServerUpdate;
+            } else {
+                Console.WriteLine("Failed: getSMS: " + (string)output);
+                }
+                Console.WriteLine("...Tock!");
         }
 
         #endregion
 
         #region "Data Classes"
 
-        public class TextMessage
-        {
-
-            public string ID { get; set; }
-            public string Type { get; set; }
-            public string Timestamp { get; set; }
-            public string DID { get; set; }
-            public string ContactNumber { get; set; }
-            public string ContactName { get; set; }
-            public string Text { get; set; }
-
-        }
-
+        
 
         public class SettingsCollection
         {
@@ -956,13 +947,52 @@ namespace msMessenger
 
         #region "TEST CODE AND OTHER USELESS STUFF"
 
-        private void materialRaisedButton1_Click(object sender, EventArgs e)
+        private string convertEmojiToText(string unicodeData)
         {
-            Console.WriteLine("Applying boost!");
-            MessageCheckTimer.Interval = 30000;
-            BoostCheck.Enabled = true;
+            
+
+
+
+            return "";
         }
 
+
         #endregion
+
+        private void MainMessagePanel_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            populateConversationList("4033995293");
+            toAddress_text.Text = "Mom";
+            toAddress_text.Enabled = false;
+            newMessageContent_text.Focus();
+            materialTabControl1.Visible = false;
+            materialTabSelector1.Visible = false;
+        }
+
+        private void MainMessagePanel_MouseEnter(object sender, EventArgs e)
+        {
+            MainMessagePanel.Focus();
+        }
+
+        private void ComposeMessage_img_MouseHover(object sender, EventArgs e)
+        {
+         while (ComposeMessage_img.Left > 283)
+            {
+                
+                ComposeMessage_img.Left = ComposeMessage_img.Left - 10;
+                ComposeMessage_img.Refresh();
+                System.Threading.Thread.Sleep(30);
+            }   
+        }
+
+        private void ComposeMessage_img_MouseLeave(object sender, EventArgs e)
+        {
+            while (ComposeMessage_img.Left < 333)
+            {
+                ComposeMessage_img.Left = ComposeMessage_img.Left + 10;
+                ComposeMessage_img.Refresh();
+                System.Threading.Thread.Sleep(30);
+            }
+        }
     }
 }

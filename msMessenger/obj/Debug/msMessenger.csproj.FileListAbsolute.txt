@@ -1,27 +1,15 @@
-C:\Users\Clinton\AppData\Local\Temporary Projects\msMessenger\bin\Debug\msMessenger.exe.config
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Debug\msMessenger.exe.config
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Debug\msMessenger.csprojResolveAssemblyReference.cache
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Debug\msMessenger.msMessenger.resources
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Debug\msMessenger.Properties.Resources.resources
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Debug\msMessenger.csproj.GenerateResource.Cache
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Debug\msMessenger.exe
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Debug\msMessenger.pdb
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Debug\MaterialSkin.dll
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Debug\msMessenger.exe
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Debug\msMessenger.pdb
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\obj\Debug\msMessenger.DIDSelector.resources
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Clinton\Documents\Visual Studio 2015\Projects\msMessenger\msMessenger\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\bin\Debug\msMessenger.exe.config
-C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.exe
-C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.pdb
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\bin\Debug\msMessenger.exe
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\bin\Debug\msMessenger.pdb
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\bin\Debug\MaterialSkin.dll
+C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\bin\Debug\Message.dll
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\bin\Debug\Message.pdb
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.csprojResolveAssemblyReference.cache
-C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.DIDSelector.resources
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.msMessenger.resources
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.Properties.Resources.resources
+C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.Setup.resources
 C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.csproj.GenerateResource.Cache
+C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.exe
+C:\Users\Clinton\Source\Repos\msMessenger\msMessenger\obj\Debug\msMessenger.pdb

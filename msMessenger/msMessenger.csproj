@@ -2,6 +2,23 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <TargetPlatformVersion>8.0</TargetPlatformVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3AEBEAB6-D6D0-43C1-A32B-777ACC7F115E}</ProjectGuid>
@@ -11,6 +28,7 @@
     <AssemblyName>msMessenger</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,6 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
@@ -56,12 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DIDSelector.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DIDSelector.Designer.cs">
-      <DependentUpon>DIDSelector.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Classes\Fingerprint.cs" />
+    <Compile Include="Classes\httpListener.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,14 +87,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Util.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Classes\sms.cs" />
+    <Compile Include="DataTypeClasses\TextMessage.cs" />
+    <Compile Include="Classes\utilities.cs" />
+    <Compile Include="Setup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setup.Designer.cs">
+      <DependentUpon>Setup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StringEncryption.cs" />
     <Compile Include="Web References\ms.voip\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DIDSelector.resx">
-      <DependentUpon>DIDSelector.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -93,6 +115,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Setup.resx">
+      <DependentUpon>Setup.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Resources\Fonts\NotoColorEmoji.ttf" />
+    <None Include="Resources\Fonts\NotoEmoji-Regular.ttf" />
+    <None Include="Resources\Fonts\NotoSans-Bold.ttf" />
+    <None Include="Resources\Fonts\NotoSans-BoldItalic.ttf" />
+    <None Include="Resources\Fonts\NotoSans-Italic.ttf" />
+    <None Include="Resources\Fonts\NotoSans-Regular.ttf" />
+    <None Include="Resources\Fonts\NotoSerif-Bold.ttf" />
+    <None Include="Resources\Fonts\NotoSerif-BoldItalic.ttf" />
+    <None Include="Resources\Fonts\NotoSerif-Italic.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -110,7 +144,9 @@
     <None Include="Web References\ms.voip\VoIPmsService.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ComposeNew_96.png" />
@@ -133,6 +169,33 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>msMessenger_ms_voip_VoIPms_Service</CachedSettingsPropName>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\notification.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trayIcon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Messenger_icon_blank_r_32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MessageControl\MessageControls.csproj">
+      <Project>{635b0867-ea4a-44aa-81fd-f3f4530d239e}</Project>
+      <Name>MessageControls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

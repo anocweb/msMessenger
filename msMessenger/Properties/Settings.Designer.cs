@@ -35,7 +35,7 @@ namespace msMessenger.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4037445447")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ActiveDID {
             get {
                 return ((string)(this["ActiveDID"]));
@@ -59,19 +59,7 @@ namespace msMessenger.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2016-06-01")]
-        public global::System.DateTime LastTimeCheck {
-            get {
-                return ((global::System.DateTime)(this["LastTimeCheck"]));
-            }
-            set {
-                this["LastTimeCheck"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("clinton@jarvis.im")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -83,7 +71,7 @@ namespace msMessenger.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SOvI%eSh31")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -95,25 +83,37 @@ namespace msMessenger.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutoLogin {
-            get {
-                return ((bool)(this["AutoLogin"]));
-            }
-            set {
-                this["AutoLogin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2016-06-01 00:00:00")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LastServerUpdate {
             get {
                 return ((string)(this["LastServerUpdate"]));
             }
             set {
                 this["LastServerUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string userKey {
+            get {
+                return ((string)(this["userKey"]));
+            }
+            set {
+                this["userKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string machineKey {
+            get {
+                return ((string)(this["machineKey"]));
+            }
+            set {
+                this["machineKey"] = value;
             }
         }
     }
